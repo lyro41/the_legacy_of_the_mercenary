@@ -1,3 +1,4 @@
+#include "pch.h"
 #include <SFML/Graphics.hpp>
 #include <locale>
 #include "map.h"
@@ -38,9 +39,9 @@ public:
 
     }
 
-    void Update(float time)
+    void Update(Map &objects, float time)
     {
-        if(Keyboard::isKeyPressed(Keyboard::W))
+        if (Keyboard::isKeyPressed(Keyboard::W))
         {
             dir = 3;
             speed = original_speed;
@@ -50,7 +51,7 @@ public:
             sprite.setTextureRect(IntRect(31* int(current_frame), 128 , 31, 60));
 
         }
-        else if(Keyboard::isKeyPressed(Keyboard::S))
+        else if (Keyboard::isKeyPressed(Keyboard::S))
         {
             dir = 2;
             speed = original_speed;
@@ -60,7 +61,7 @@ public:
             sprite.setTextureRect(IntRect(31* int(current_frame), 0 , 31, 60));
 
         }
-        else if(Keyboard::isKeyPressed(Keyboard::A))
+        else if (Keyboard::isKeyPressed(Keyboard::A))
         {
             dir = 1;
             speed = original_speed;
@@ -70,7 +71,7 @@ public:
             sprite.setTextureRect(IntRect(31* int(current_frame), 62 , 31, 60));
 
         }
-        else if(Keyboard::isKeyPressed(Keyboard::D))
+        else if (Keyboard::isKeyPressed(Keyboard::D))
         {
             dir = 0;
             speed = original_speed;
@@ -81,26 +82,31 @@ public:
 
         }
 
+		if (Keyboard::isKeyPressed(Keyboard::E))
+		{
+			this->interactionWithMap("loot_check");
+		}
+
         getCharacterCoordinateView(this->getCharacterCoordinateX(), this->getCharacterCoordinateY());
 
         switch (dir)
         {
-        case 0:
-            ax = speed;
-            ay = 0;
-            break;
-        case 1:
-            ax = -speed;
-            ay = 0;
-            break;
-        case 2:
-            ax = 0;
-            ay = speed;
-            break;
-        case 3:
-            ax = 0;
-            ay = -speed;
-            break;
+			case 0:
+				ax = speed;
+				ay = 0;
+				break;
+			case 1:
+				ax = -speed;
+				ay = 0;
+				break;
+			case 2:
+				ax = 0;
+				ay = speed;
+				break;
+			case 3:
+				ax = 0;
+				ay = -speed;
+				break;
         }
 
         x += ax*time;
@@ -109,7 +115,7 @@ public:
         speed = 0;
 
         sprite.setPosition(x, y);
-        //this->interactionWithMap();
+        this->interactionWithMap();
 
     }
 
@@ -130,25 +136,25 @@ public:
 
     void interactionWithMap()
     {
-        for(int i = y / 32; i < (y + hs) / 32; ++i)
-            for(int j = x / 32; j < (x + ws) / 32; ++j)
+        for (int i = y / 64; i < (y + hs) / 64; ++i)
+            for (int j = x / 64; j < (x + ws) / 64; ++j)
             {
-                if(titleMap[i][j] == '0')
+                if (objects_map[i][j] == '0')
                 {
 
-                    if(ay > 0)
+                    if (ay > 0)
                     {
                         y = i * 64 - hs;
                     }
-                    else if(ay < 0)
+                    else if (ay < 0)
                     {
                         y = i * 64 + 64;
                     }
-                    else if(ax > 0)
+                    else if (ax > 0)
                     {
                         x = j * 64 - ws;
                     }
-                    else if(ax < 0)
+                    else if (ax < 0)
                     {
                         x = j * 64 + 64;
                     }
@@ -157,6 +163,53 @@ public:
             }
 
     }
+
+	void interactionWithMap(String command)
+	{
+		if (command == "loot_check")
+		{
+			if (ay > 0)
+			{
+				/*
+				if (Objects.lootable_objects(objects_map[y / 64 + 1][x / 64])
+				{
+					Inventory.addToInventory(objects_map[y / 64 + 1][x / 64]);
+					objects_map[y / 64 + 1][x / 64] = '\0';
+				}
+				*/
+			}
+			else if (ay < 0)
+			{
+				/*
+				if (Objects.lootable_objects(objects_map[y / 64 - 1][x / 64])
+				{
+					Inventory.addToInventory(objects_map[y / 64 - 1][x / 64]);
+					objects_map[y / 64 - 1][x / 64] = '\0';
+				}
+				*/
+			}
+			else if (ax > 0)
+			{
+				/*
+				if (Objects.lootable_objects(objects_map[y / 64][x / 64 + 1])
+				{
+					Inventory.addToInventory(objects_map[y / 64][x / 64 + 1]);
+					objects_map[y / 64][x / 64 + 1] = '\0';
+				}
+				*/
+			}
+			else if (ax < 0)
+			{
+				/*
+				if (Objects.lootable_objects(objects_map[y / 64][x / 64 - 1])
+				{
+					Inventory.addToInventory(objects_map[y / 64][x / 64 - 1]);
+					objects_map[y / 64][x / 64 - 1] = '\0';
+				}
+				*/
+			}
+		}
+	}
 
 };
 
@@ -192,10 +245,10 @@ public:
 
     void DrawMap(RenderWindow &window)
     {
-        for(int i = 0; i < height_map; ++i)
-            for(int j = 0; j < width_map; ++j)
+        for (int i = 0; i < height_map; ++i)
+            for (int j = 0; j < width_map; ++j)
             {
-                if(titleMap[i][j] == ' ')
+                if (titleMap[i][j] == ' ')
                     map_sprite.setTextureRect(IntRect(0, 0, 64, 64));
                 else if (titleMap[i][j] == 'a')
                     map_sprite.setTextureRect(IntRect(64, 0, 64, 64));
@@ -230,17 +283,17 @@ public:
             }
     }
 
-    void DrawGrass(float time, RenderWindow &window)
+    void DrawObjects(float time, RenderWindow &window)
     {
 
         current_frame += (0.005*time);
         if(current_frame > 4)
                 current_frame = 0;
 
-        for(int i = 0; i < height_map_for_grass; ++i)
-            for(int j = 0; j < width_map_for_grass; ++j)
+        for(int i = 0; i < height_map_for_objects; ++i)
+            for(int j = 0; j < width_map_for_objects; ++j)
             {
-                if(grass_on_map[i][j] == ' ')
+                if(objects_map[i][j] == ' ')
                 {
                     grass_sprite.setTextureRect(IntRect(72 * int(current_frame), 0, 72, 64));
                     grass_sprite.setPosition(j*64, i*64);
@@ -249,8 +302,17 @@ public:
             }
     }
 
+	bool lootable_objects(char name)
+	{
+		switch (name)
+		{
+			case '0': return false;
+			case ' ': return false;
+		}
+	}
 
 };
+
 /*
 class Inventory
 {
@@ -269,28 +331,28 @@ public:
         inventory_texture.loadFromImage(inventory_image);
         inventory_sprite.setTexture(inventory_texture);
 
-        for(int i = 0; i < 8; ++i)
-            for(int j = 0; j < 16; ++j)
-                {
-                    inventory[i][j] = '0';
-                }
+        for (int i = 0; i < 8; ++i)
+            for (int j = 0; j < 16; ++j)
+            {
+                inventory[i][j] = '0';
+            }
     }
 
-    void openInventory(RenderWindow &window)
+    void openInventory (RenderWindow &window)
     {
-        if(Keyboard::isKeyPressed(Keyboard::I))
+        if (Keyboard::isKeyPressed(Keyboard::I))
         {
             window.draw(inventory_sprite);
         }
 
     }
 
-    void putInside(char obj, RenderWindow &window)
+    void putInside (char obj, RenderWindow &window)
     {
-        for(int i = 0; i < 8; ++i)
-            for(int j = 0; j < 16; ++j)
+        for (int i = 0; i < 8; ++i)
+            for (int j = 0; j < 16; ++j)
             {
-                if(inventory[i][j] == '0')
+                if (inventory[i][j] == '0')
                     inventory[i][j] = obj;
                 window.draw(inventory_sprite);
             }
@@ -334,7 +396,7 @@ int main()
         Event event;
         while (window.pollEvent(event))
         {
-            if(event.type == Event::Closed || (event.type == Event::KeyPressed && event.key.code == Keyboard::Escape))
+            if (event.type == Event::Closed || (event.type == Event::KeyPressed && event.key.code == Keyboard::Escape))
             window.close();
         }
 
@@ -345,7 +407,7 @@ int main()
         window.clear();
 
         location.DrawMap(window);
-        location.DrawGrass(Time, window);
+        location.DrawObjects(Time, window);
 
         Time = clock.getElapsedTime().asMilliseconds();
         clock.restart();
