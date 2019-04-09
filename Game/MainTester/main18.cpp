@@ -138,22 +138,28 @@ public:
 
                     if(ay > 0)
                     {
-                        y = i * 64 - hs;
+                        y = i * 32 - hs;
                     }
                     else if(ay < 0)
                     {
-                        y = i * 64 + 64;
+                        y = i * 32 + 32;
                     }
                     else if(ax > 0)
                     {
-                        x = j * 64 - ws;
+                        x = j * 32 - ws;
                     }
                     else if(ax < 0)
                     {
-                        x = j * 64 + 64;
+                        x = j * 32 + 32;
                     }
 
                 }
+
+                if(titleMap[i][j] == 's')
+                {
+                    titleMap[i][j] = ' ';
+                }
+
             }
 
     }
@@ -228,12 +234,13 @@ public:
                 window.draw(map_sprite);
 
             }
+        //return map_sprite;
     }
 
     void DrawGrass(float time, RenderWindow &window)
     {
 
-        current_frame += (0.005*time);
+        current_frame += (0.007*time);
         if(current_frame > 4)
                 current_frame = 0;
 
@@ -246,60 +253,16 @@ public:
                     grass_sprite.setPosition(j*64, i*64);
                     window.draw(grass_sprite);
                 }
+
+
             }
-    }
-
-
-};
-/*
-class Inventory
-{
-private:
-
-    char inventory[8][16];
-    Image inventory_image;
-    Texture inventory_texture;
-    Sprite inventory_sprite;
-
-public:
-
-    Inventory()
-    {
-        inventory_image.loadFromFile("inventory.PNG");
-        inventory_texture.loadFromImage(inventory_image);
-        inventory_sprite.setTexture(inventory_texture);
-
-        for(int i = 0; i < 8; ++i)
-            for(int j = 0; j < 16; ++j)
-                {
-                    inventory[i][j] = '0';
-                }
-    }
-
-    void openInventory(RenderWindow &window)
-    {
-        if(Keyboard::isKeyPressed(Keyboard::I))
-        {
-            window.draw(inventory_sprite);
-        }
-
-    }
-
-    void putInside(char obj, RenderWindow &window)
-    {
-        for(int i = 0; i < 8; ++i)
-            for(int j = 0; j < 16; ++j)
-            {
-                if(inventory[i][j] == '0')
-                    inventory[i][j] = obj;
-                window.draw(inventory_sprite);
-            }
+        //return grass_sprite;
 
     }
 
 
 };
-*/
+
 
 int main()
 {
@@ -316,10 +279,6 @@ int main()
 
     Map location("Map.end.blur.PNG", "grass.PNG");
     Character Hero("hero.PNG", 200, 200, 30, 60, 0.1);
-
-
-
-
 
 
     while (window.isOpen())

@@ -2,7 +2,7 @@
 #include <locale>
 #include "map.h"
 #include "view.h"
-#include "object.h"
+
 
 using namespace sf;
 
@@ -17,7 +17,7 @@ private:
     Image image;
     Texture texture;
     Sprite sprite;
-    float current_frame = 2;
+    float current_frame = 0;
 
 
 public:
@@ -45,9 +45,9 @@ public:
             dir = 3;
             speed = original_speed;
             current_frame += (0.005*time);
-            if(current_frame > 6)
-                current_frame = 2;
-            sprite.setTextureRect(IntRect(31* int(current_frame), 128 , 31, 60));
+            if(current_frame > 3)
+                current_frame = 0;
+            sprite.setTextureRect(IntRect(96* int(current_frame), 288 ,96, 96));
 
         }
         else if(Keyboard::isKeyPressed(Keyboard::S))
@@ -55,19 +55,19 @@ public:
             dir = 2;
             speed = original_speed;
             current_frame += (0.005*time);
-            if(current_frame > 6)
-                current_frame = 2;
-            sprite.setTextureRect(IntRect(31* int(current_frame), 0 , 31, 60));
+            if(current_frame > 3)
+                current_frame = 0;
+            sprite.setTextureRect(IntRect(96* int(current_frame), 0 ,96, 96));
 
         }
-        else if(Keyboard::isKeyPressed(Keyboard::A))
+        if(Keyboard::isKeyPressed(Keyboard::A))
         {
             dir = 1;
             speed = original_speed;
             current_frame += (0.005*time);
-            if(current_frame > 6)
-                current_frame = 1;
-            sprite.setTextureRect(IntRect(31* int(current_frame), 62 , 31, 60));
+            if(current_frame > 3)
+                current_frame = 0;
+            sprite.setTextureRect(IntRect(96* int(current_frame), 96 ,96, 96));
 
         }
         else if(Keyboard::isKeyPressed(Keyboard::D))
@@ -75,9 +75,9 @@ public:
             dir = 0;
             speed = original_speed;
             current_frame += (0.005*time);
-            if(current_frame > 6)
-                current_frame = 1;
-            sprite.setTextureRect(IntRect(31* int(current_frame), 193 , 31, 60));
+            if(current_frame > 3)
+                current_frame = 0;
+            sprite.setTextureRect(IntRect(96* int(current_frame), 192 ,96, 96));
 
         }
 
@@ -138,22 +138,28 @@ public:
 
                     if(ay > 0)
                     {
-                        y = i * 64 - hs;
+                        y = i * 32 - hs;
                     }
                     else if(ay < 0)
                     {
-                        y = i * 64 + 64;
+                        y = i * 32 + 32;
                     }
                     else if(ax > 0)
                     {
-                        x = j * 64 - ws;
+                        x = j * 32 - ws;
                     }
                     else if(ax < 0)
                     {
-                        x = j * 64 + 64;
+                        x = j * 32 + 32;
                     }
 
                 }
+
+                if(titleMap[i][j] == 's')
+                {
+                    titleMap[i][j] = ' ';
+                }
+
             }
 
     }
@@ -171,26 +177,16 @@ private:
     Texture map_texture;
     Sprite map_sprite;
 
-    Image grass_image;
-    Texture grass_texture;
-    Sprite grass_sprite;
-
-    float current_frame = 0;
-
 public:
 
-    Map(String title_map, String title_grass)
+    Map(String title_map)
     {
         map_image.loadFromFile("images/"+title_map);
         map_texture.loadFromImage(map_image);
         map_sprite.setTexture(map_texture);
-
-        grass_image.loadFromFile("images/"+title_grass);
-        grass_texture.loadFromImage(grass_image);
-        grass_sprite.setTexture(grass_texture);
     }
 
-    void DrawMap(RenderWindow &window)
+    Sprite DrawMap(RenderWindow &window)
     {
         for(int i = 0; i < height_map; ++i)
             for(int j = 0; j < width_map; ++j)
@@ -226,80 +222,12 @@ public:
 
                 map_sprite.setPosition(j*64, i*64);
                 window.draw(map_sprite);
-
             }
+        return map_sprite;
     }
-
-    void DrawGrass(float time, RenderWindow &window)
-    {
-
-        current_frame += (0.005*time);
-        if(current_frame > 4)
-                current_frame = 0;
-
-        for(int i = 0; i < height_map_for_grass; ++i)
-            for(int j = 0; j < width_map_for_grass; ++j)
-            {
-                if(grass_on_map[i][j] == ' ')
-                {
-                    grass_sprite.setTextureRect(IntRect(72 * int(current_frame), 0, 72, 64));
-                    grass_sprite.setPosition(j*64, i*64);
-                    window.draw(grass_sprite);
-                }
-            }
-    }
-
 
 };
-/*
-class Inventory
-{
-private:
 
-    char inventory[8][16];
-    Image inventory_image;
-    Texture inventory_texture;
-    Sprite inventory_sprite;
-
-public:
-
-    Inventory()
-    {
-        inventory_image.loadFromFile("inventory.PNG");
-        inventory_texture.loadFromImage(inventory_image);
-        inventory_sprite.setTexture(inventory_texture);
-
-        for(int i = 0; i < 8; ++i)
-            for(int j = 0; j < 16; ++j)
-                {
-                    inventory[i][j] = '0';
-                }
-    }
-
-    void openInventory(RenderWindow &window)
-    {
-        if(Keyboard::isKeyPressed(Keyboard::I))
-        {
-            window.draw(inventory_sprite);
-        }
-
-    }
-
-    void putInside(char obj, RenderWindow &window)
-    {
-        for(int i = 0; i < 8; ++i)
-            for(int j = 0; j < 16; ++j)
-            {
-                if(inventory[i][j] == '0')
-                    inventory[i][j] = obj;
-                window.draw(inventory_sprite);
-            }
-
-    }
-
-
-};
-*/
 
 int main()
 {
@@ -314,12 +242,8 @@ int main()
     view.reset(FloatRect(0, 0, 1920, 1080));
 
 
-    Map location("Map.end.blur.PNG", "grass.PNG");
-    Character Hero("hero.PNG", 200, 200, 30, 60, 0.1);
-
-
-
-
+    Map location("Map.end.PNG");
+    Character Hero("hero.PNG", 200, 200, 96.0, 96.0, 0.1);
 
 
     while (window.isOpen())
@@ -345,7 +269,6 @@ int main()
         window.clear();
 
         location.DrawMap(window);
-        location.DrawGrass(Time, window);
 
         Time = clock.getElapsedTime().asMilliseconds();
         clock.restart();

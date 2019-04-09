@@ -1,9 +1,9 @@
 #include <SFML/Graphics.hpp>
 
-const int height_map = 21;
-const int width_map = 21;
+const int height_map_for_grass = 21;
+const int width_map_for_grass = 21;
 
-sf::String titleMap[height_map] = {
+sf::String grass_on_map[height_map_for_grass] = {
     "000000000000000000000",
     "0                   0",
     "0                   0",
@@ -26,3 +26,4 @@ sf::String titleMap[height_map] = {
     "0     deef          0",
     "000000000000000000000"
 };
+
