@@ -1,22 +1,21 @@
+#pragma once
+#ifndef VIEW_H
+#define VIEW_H
+
 #include <SFML/Graphics.hpp>
 
 using namespace sf;
 
-View view;
-
-View getCharacterCoordinateView(float x, float y)
+class Camera
 {
-    float tempX = x, tempY = y;
 
-    if(x < 320)
-        tempX = 320;
-    if(x > 600)
-        tempX = 600;
-    if(y < 240)
-        tempY = 240;
-    if(y > 554)
-        tempY = 554;
+public:
 
-    view.setCenter(tempX, tempY);
-    return view;
-}
+	View camera_view;
+
+	Camera(Rect<float> resolution);
+	View GetCharacterCoordinateView(float x, float y);
+
+};
+
+#endif // VIEW_H
