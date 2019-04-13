@@ -15,6 +15,10 @@ private:
 	Texture grass_texture;
 	Sprite grass_sprite;
 
+	Image pearl_image;
+	Texture pearl_texture;
+	Sprite pearl_sprite;
+
 	float current_frame = 0;
 
 
@@ -26,9 +30,9 @@ public:
 	sf::String objects_map[height_map_for_objects] = {
 		"000000000000000000000",
 		"0                   0",
-		"0                   0",
-		"0                   0",
-		"0                   0",
+		"0    p              0",
+		"0    p              0",
+		"0    p              0",
 		"0         abbbbbbbbb0",
 		"0        akeeeeeeeee0",
 		"0       akeeeeeeeeee0",

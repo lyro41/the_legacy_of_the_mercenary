@@ -1,20 +1,6 @@
-﻿  Character.cpp
-d:\coding\game\game\character.cpp(14): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-d:\coding\game\game\character.cpp(15): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-d:\coding\game\game\character.cpp(16): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-          with
-          [
-              T=int
-          ]
-d:\coding\game\game\character.cpp(29): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-d:\coding\game\game\character.cpp(39): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-d:\coding\game\game\character.cpp(49): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-d:\coding\game\game\character.cpp(59): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-d:\coding\game\game\character.cpp(130): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-d:\coding\game\game\character.cpp(132): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-  main.cpp
-d:\coding\game\game\main.cpp(74): warning C4305: 'argument': truncation from 'double' to 'float'
-d:\coding\game\game\main.cpp(85): warning C4244: 'initializing': conversion from 'sf::Int64' to 'float', possible loss of data
-d:\coding\game\game\main.cpp(108): warning C4244: '=': conversion from 'sf::Int32' to 'float', possible loss of data
-  Generating Code...
+﻿  Objects.cpp
+d:\coding\game\game\objects.cpp(22): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+d:\coding\game\game\objects.cpp(33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\coding\game\game\objects.cpp(39): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\coding\game\game\objects.cpp(56): warning C4715: 'Objects::ObjectState': not all control paths return a value
   Game.vcxproj -> D:\Coding\Game\x64\Debug\Game.exe

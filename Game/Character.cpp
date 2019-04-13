@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "Character.h"
-#include "view.h"
 
 
 
@@ -20,7 +19,7 @@ Character::Character(String title_pers, int X, int Y, float width_sprite, float 
 
 
 
-void Character::Update(float time, Objects &objects_map, Camera &camera)
+void Character::Update(float time, Objects &objects, Camera &camera, Inventory &inventory, RenderWindow &window)
 {
 	if (Keyboard::isKeyPressed(Keyboard::W))
 	{
@@ -63,9 +62,14 @@ void Character::Update(float time, Objects &objects_map, Camera &camera)
 
 	}
 
-	if (Keyboard::isKeyPressed(Keyboard::E))
+	if (Keyboard::isKeyPressed(Keyboard::I))
 	{
-		this->InteractionWithMap("loot_check", objects_map);
+		if (inventory.GetStatus()) inventory.Close(window);
+		else inventory.Open(window);
+	}
+	else if (Keyboard::isKeyPressed(Keyboard::E))
+	{
+		this->InteractionWithMap("loot_check", window, objects, inventory);
 	}
 
 	camera.GetCharacterCoordinateView(this->GetCharacterCoordinateX(), this->GetCharacterCoordinateY());
@@ -96,7 +100,7 @@ void Character::Update(float time, Objects &objects_map, Camera &camera)
 	speed = 0;
 
 	sprite.setPosition(x, y);
-	this->InteractionWithMap("static", objects_map);
+	this->InteractionWithMap("static", window, objects, inventory);
 
 }
 
@@ -123,7 +127,7 @@ Sprite Character::GetSprite()
 
 
 
-void Character::InteractionWithMap(String command, Objects &objects_map)
+void Character::InteractionWithMap(String command, RenderWindow &window, Objects &objects, Inventory inventory)
 {
 	if (command == "static")
 	{
@@ -131,7 +135,7 @@ void Character::InteractionWithMap(String command, Objects &objects_map)
 		{
 			for (int j = x / 64; j < (x + ws) / 64; ++j)
 			{
-				if (objects_map.objects_map[i][j] == '0')
+				if (objects.objects_map[i][j] == '0')
 				{
 					if (ax == 0) y = i * 64 + 64 * (ay < 0) - hs * (ay > 0);
 					else x = j * 64 + 64 * (ax < 0) - ws * (ax > 0);
@@ -141,45 +145,43 @@ void Character::InteractionWithMap(String command, Objects &objects_map)
 	}
 	else if (command == "loot_check")
 	{
+
+		int Y = static_cast<int> (y);
+		int X = static_cast<int> (x);
+
 		if (ay > 0)
 		{
-			/*
-			if (Objects.lootable_objects(objects_map[y / 64 + 1][x / 64])
+			
+			if (objects.ObjectState(objects.objects_map[Y / 64 + 1][X / 64]) == "lootable")
 			{
-				Inventory.addToInventory(objects_map[y / 64 + 1][x / 64]);
-				objects_map[y / 64 + 1][x / 64] = '\0';
+				inventory.AddToInventory(objects.objects_map[Y / 64 + 1][X / 64], window);
+				objects.objects_map[Y / 64 + 1][X / 64] = ' ';
 			}
-			*/
+			
 		}
 		else if (ay < 0)
 		{
-			/*
-			if (Objects.lootable_objects(objects_map[y / 64 - 1][x / 64])
+			if (objects.ObjectState(objects.objects_map[Y / 64][X / 64]) == "lootable")
 			{
-				Inventory.addToInventory(objects_map[y / 64 - 1][x / 64]);
-				objects_map[y / 64 - 1][x / 64] = '\0';
+				inventory.AddToInventory(objects.objects_map[Y / 64][X / 64], window);
+				objects.objects_map[Y / 64][X / 64] = ' ';
 			}
-			*/
 		}
 		else if (ax > 0)
 		{
-			/*
-			if (Objects.lootable_objects(objects_map[y / 64][x / 64 + 1])
+			if (objects.ObjectState(objects.objects_map[Y / 64 + 1][X / 64 + 1]) == "lootable")
 			{
-				Inventory.addToInventory(objects_map[y / 64][x / 64 + 1]);
-				objects_map[y / 64][x / 64 + 1] = '\0';
+				inventory.AddToInventory(objects.objects_map[Y / 64 + 1][X / 64 + 1], window);
+				objects.objects_map[Y / 64 + 1][X / 64 + 1] = ' ';
 			}
-			*/
 		}
 		else if (ax < 0)
 		{
-			/*
-			if (Objects.lootable_objects(objects_map[y / 64][x / 64 - 1])
+			if (objects.ObjectState(objects.objects_map[Y / 64 + 1][X / 64 - 1]) == "lootable")
 			{
-				Inventory.addToInventory(objects_map[y / 64][x / 64 - 1]);
-				objects_map[y / 64][x / 64 - 1] = '\0';
+				inventory.AddToInventory(objects.objects_map[Y / 64 + 1][X / 64 - 1], window);
+				objects.objects_map[Y / 64 + 1][X / 64 - 1] = ' ';
 			}
-			*/
 		}
 	}
 }

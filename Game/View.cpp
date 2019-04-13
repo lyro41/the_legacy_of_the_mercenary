@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "View.h"
 
+
+
 Camera::Camera(Rect<float> resolution)
 {
 	camera_view.reset(resolution);
