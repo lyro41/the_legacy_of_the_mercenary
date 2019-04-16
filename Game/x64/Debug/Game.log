@@ -1,6 +1,5 @@
-﻿  Objects.cpp
-d:\coding\game\game\objects.cpp(22): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-d:\coding\game\game\objects.cpp(33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\coding\game\game\objects.cpp(39): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\coding\game\game\objects.cpp(56): warning C4715: 'Objects::ObjectState': not all control paths return a value
+﻿  main.cpp
+d:\coding\game\game\main.cpp(24): warning C4305: 'argument': truncation from 'double' to 'float'
+d:\coding\game\game\main.cpp(36): warning C4244: 'initializing': conversion from 'sf::Int64' to 'float', possible loss of data
+d:\coding\game\game\main.cpp(59): warning C4244: '=': conversion from 'sf::Int32' to 'float', possible loss of data
   Game.vcxproj -> D:\Coding\Game\x64\Debug\Game.exe

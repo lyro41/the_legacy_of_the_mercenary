@@ -21,7 +21,7 @@ int main()
 
 
     Map location("Map.end.blur.PNG", "grass.PNG");
-    Character Hero("hero.PNG", 200, 200, 30, 60, 0.1);
+    Character Hero("hero.PNG", 200, 200, 30, 60, 0.3);
 	Objects objects;
 	Camera camera(FloatRect(0, 0, 1920, 1080));
 	Inventory inventory;

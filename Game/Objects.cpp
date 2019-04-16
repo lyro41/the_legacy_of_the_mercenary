@@ -52,6 +52,7 @@ String Objects::ObjectState(char tile)
 		case '0': return "static";
 		case ' ': return "dynamic";
 		case 'p': return "lootable";
+		default: return "unknown";
 	}
 }
 
