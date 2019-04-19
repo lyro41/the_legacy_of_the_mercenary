@@ -92,7 +92,15 @@ void Character::Update(float time, Objects &objects, Camera &camera, Inventory &
 		ax = 0;
 		ay = -speed;
 		break;
+	default:
+		ax = 0;
+		ay = 0;
 	}
+
+	/*
+	ax = speed * (Keyboard::isKeyPressed(Keyboard::D) - Keyboard::isKeyPressed(Keyboard::A));
+	ay = speed * (Keyboard::isKeyPressed(Keyboard::S) - Keyboard::isKeyPressed(Keyboard::W));
+	*/
 
 	x += ax * time;
 	y += ay * time;

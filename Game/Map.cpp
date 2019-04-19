@@ -45,6 +45,8 @@ void Map::DrawMap(RenderWindow &window)
 				map_sprite.setTextureRect(IntRect(64 * 12, 0, 64, 64));
 			else if (tileMap[i][j] == 'm')
 				map_sprite.setTextureRect(IntRect(64 * 13, 0, 64, 64));
+			else if (tileMap[i][j] == '0')
+				map_sprite.setTextureRect(IntRect(0, 0, 64, 64));
 
 			map_sprite.setPosition(j * 64, i * 64);
 			window.draw(map_sprite);
