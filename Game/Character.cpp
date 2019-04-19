@@ -21,46 +21,42 @@ Character::Character(String title_pers, int X, int Y, float width_sprite, float 
 
 void Character::Update(float time, Objects &objects, Camera &camera, Inventory &inventory, RenderWindow &window)
 {
-	if (Keyboard::isKeyPressed(Keyboard::W))
-	{
-		dir = 3;
-		speed = original_speed;
-		current_frame += (0.005*time);
-		if (current_frame > 6)
-			current_frame = 2;
-		sprite.setTextureRect(IntRect(31 * int(current_frame), 128, 31, 60));
+	speed = original_speed;
+	ax = 0;
+	ay = 0;
 
-	}
-	else if (Keyboard::isKeyPressed(Keyboard::S))
-	{
-		dir = 2;
-		speed = original_speed;
-		current_frame += (0.005*time);
-		if (current_frame > 6)
-			current_frame = 2;
-		sprite.setTextureRect(IntRect(31 * int(current_frame), 0, 31, 60));
+	if (Keyboard::isKeyPressed(Keyboard::W)) ay -= speed;
 
-	}
-	else if (Keyboard::isKeyPressed(Keyboard::A))
-	{
-		dir = 1;
-		speed = original_speed;
-		current_frame += (0.005*time);
-		if (current_frame > 6)
-			current_frame = 1;
-		sprite.setTextureRect(IntRect(31 * int(current_frame), 62, 31, 60));
+	if (Keyboard::isKeyPressed(Keyboard::S)) ay += speed;
 
-	}
-	else if (Keyboard::isKeyPressed(Keyboard::D))
-	{
-		dir = 0;
-		speed = original_speed;
-		current_frame += (0.005*time);
-		if (current_frame > 6)
-			current_frame = 1;
-		sprite.setTextureRect(IntRect(31 * int(current_frame), 193, 31, 60));
+	if (Keyboard::isKeyPressed(Keyboard::A)) ax -= speed;
 
+	if (Keyboard::isKeyPressed(Keyboard::D)) ax += speed;
+
+	if (ax == 0 && ay == 0)
+	{
+		//current_frame = 1;
+
+		// some code
 	}
+	else
+	{
+		current_frame += (speed / 20 * time);
+		if (current_frame > 6)
+		{
+			if (ay != 0) current_frame = 1;
+			if (ax != 0) current_frame = 2;
+		}
+		
+		if (ay > 0) sprite.setTextureRect(IntRect(31 * static_cast<int>(current_frame), 0, 31, 60));
+		else if (ay < 0) sprite.setTextureRect(IntRect(31 * static_cast<int>(current_frame), 128, 31, 60));
+
+		if (ax > 0) sprite.setTextureRect(IntRect(31 * static_cast<int>(current_frame), 193, 31, 60));
+		else if (ax < 0) sprite.setTextureRect(IntRect(31 * static_cast<int>(current_frame), 62, 31, 60));
+	}
+
+	
+
 
 	if (Keyboard::isKeyPressed(Keyboard::I))
 	{
@@ -73,34 +69,6 @@ void Character::Update(float time, Objects &objects, Camera &camera, Inventory &
 	}
 
 	camera.GetCharacterCoordinateView(this->GetCharacterCoordinateX(), this->GetCharacterCoordinateY());
-
-	switch (dir)
-	{
-	case 0:
-		ax = speed;
-		ay = 0;
-		break;
-	case 1:
-		ax = -speed;
-		ay = 0;
-		break;
-	case 2:
-		ax = 0;
-		ay = speed;
-		break;
-	case 3:
-		ax = 0;
-		ay = -speed;
-		break;
-	default:
-		ax = 0;
-		ay = 0;
-	}
-
-	/*
-	ax = speed * (Keyboard::isKeyPressed(Keyboard::D) - Keyboard::isKeyPressed(Keyboard::A));
-	ay = speed * (Keyboard::isKeyPressed(Keyboard::S) - Keyboard::isKeyPressed(Keyboard::W));
-	*/
 
 	x += ax * time;
 	y += ay * time;
