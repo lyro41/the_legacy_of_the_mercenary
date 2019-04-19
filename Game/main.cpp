@@ -1,11 +1,12 @@
 #include "pch.h"
 #include <SFML/Graphics.hpp>
 #include <locale>
+#include <cstdlib>
+#include <cmath>
 #include "Character.h"
 #include "Map.h"
 #include "Objects.h"
 #include "View.h"
-
 
 
 int main()
@@ -21,7 +22,7 @@ int main()
 
 
     Map location("Map.end.blur.PNG", "grass.PNG");
-    Character Hero("hero.PNG", 200, 200, 30, 60, 0.1);
+    Character Hero("hero.PNG", 200, 200, 30, 60, 0.3);
 	Objects objects;
 	Camera camera(FloatRect(0, 0, 1920, 1080));
 	Inventory inventory;

@@ -14,7 +14,7 @@ class Character
 {
 
 private:
-	float x = 0, y = 0, ax = 0, ay = 0, speed = 0, original_speed = 0;
+	float prev_x = 0, prev_y = 0, x = 0, y = 0, ax = 0, ay = 0, speed = 0, original_speed = 0;
 	int ws = 0, hs = 0, dir = 0;
 	Image image;
 	Texture texture;

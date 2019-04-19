@@ -1,10 +1,4 @@
-﻿  Character.cpp
-d:\coding\game\game\character.cpp(8): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-d:\coding\game\game\character.cpp(9): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-d:\coding\game\game\character.cpp(13): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-d:\coding\game\game\character.cpp(14): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-d:\coding\game\game\character.cpp(108): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-d:\coding\game\game\character.cpp(110): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-d:\coding\game\game\character.cpp(114): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-d:\coding\game\game\character.cpp(115): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+﻿  main.cpp
+d:\coding\game\game\main.cpp(36): warning C4244: 'initializing': conversion from 'sf::Int64' to 'float', possible loss of data
+d:\coding\game\game\main.cpp(59): warning C4244: '=': conversion from 'sf::Int32' to 'float', possible loss of data
   Game.vcxproj -> D:\Coding\Game\x64\Debug\Game.exe

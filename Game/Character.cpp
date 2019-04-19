@@ -21,23 +21,54 @@ Character::Character(String title_pers, int X, int Y, float width_sprite, float 
 
 void Character::Update(float time, Objects &objects, Camera &camera, Inventory &inventory, RenderWindow &window)
 {
+	prev_y = y;
+	prev_x = x;
 	speed = original_speed;
 	ax = 0;
 	ay = 0;
 
-	if (Keyboard::isKeyPressed(Keyboard::W)) ay -= speed;
+	if (Keyboard::isKeyPressed(Keyboard::W))
+	{
+		ay -= speed;
+		dir = 01;
+	}
 
-	if (Keyboard::isKeyPressed(Keyboard::S)) ay += speed;
+	if (Keyboard::isKeyPressed(Keyboard::S))
+	{
+		ay += speed;
+		dir = 21;
+	}
 
-	if (Keyboard::isKeyPressed(Keyboard::A)) ax -= speed;
+	if (Keyboard::isKeyPressed(Keyboard::A))
+	{
+		ax -= speed;
+		dir = 10;
+	}
 
-	if (Keyboard::isKeyPressed(Keyboard::D)) ax += speed;
+	if (Keyboard::isKeyPressed(Keyboard::D))
+	{
+		ax += speed;
+		dir = 12;
+	}
 
 	if (ax == 0 && ay == 0)
 	{
-		//current_frame = 1;
-
-		// some code
+		current_frame = 1;
+		switch (dir)
+		{
+			case 01:
+				sprite.setTextureRect(IntRect(31 * static_cast<int>(current_frame), 128, 31, 60));
+				break;
+			case 10:
+				sprite.setTextureRect(IntRect(31 * static_cast<int>(current_frame), 62, 31, 60));
+				break;
+			case 12:
+				sprite.setTextureRect(IntRect(31 * static_cast<int>(current_frame), 193, 31, 60));
+				break;
+			default:
+				sprite.setTextureRect(IntRect(31 * static_cast<int>(current_frame), 0, 31, 60));
+		}
+		
 	}
 	else
 	{
@@ -114,7 +145,7 @@ void Character::InteractionWithMap(String command, RenderWindow &window, Objects
 				if (objects.objects_map[i][j] == '0')
 				{
 					if (ax == 0) y = i * 64 + 64 * (ay < 0) - hs * (ay > 0);
-					else x = j * 64 + 64 * (ax < 0) - ws * (ax > 0);
+					else if (ay == 0) x = j * 64 + 64 * (ax < 0) - ws * (ax > 0);
 				}
 			}
 		}
