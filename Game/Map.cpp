@@ -1,6 +1,9 @@
 #include "pch.h"
 #include "Map.h"
 
+const int TILE_SIZE = 64;
+const double MIN_TRAIL = 1e-8;
+
 
 
 Map::Map(String map_title, String title_grass)
@@ -19,32 +22,8 @@ void Map::DrawMap(RenderWindow &window)
 		{
 			if (tileMap[i][j] == ' ')
 				map_sprite.setTextureRect(IntRect(0, 0, 64, 64));
-			else if (tileMap[i][j] == 'a')
-				map_sprite.setTextureRect(IntRect(64, 0, 64, 64));
-			else if (tileMap[i][j] == 'b')
-				map_sprite.setTextureRect(IntRect(64 * 2, 0, 64, 64));
-			else if (tileMap[i][j] == 'c')
-				map_sprite.setTextureRect(IntRect(64 * 3, 0, 64, 64));
-			else if (tileMap[i][j] == 'd')
-				map_sprite.setTextureRect(IntRect(64 * 4, 0, 64, 64));
-			else if (tileMap[i][j] == 'e')
-				map_sprite.setTextureRect(IntRect(64 * 5, 0, 64, 64));
-			else if (tileMap[i][j] == 'f')
-				map_sprite.setTextureRect(IntRect(64 * 6, 0, 64, 64));
-			else if (tileMap[i][j] == 'g')
-				map_sprite.setTextureRect(IntRect(64 * 7, 0, 64, 64));
-			else if (tileMap[i][j] == 'h')
-				map_sprite.setTextureRect(IntRect(64 * 8, 0, 64, 64));
-			else if (tileMap[i][j] == 'i')
-				map_sprite.setTextureRect(IntRect(64 * 9, 0, 64, 64));
-			else if (tileMap[i][j] == 'j')
-				map_sprite.setTextureRect(IntRect(64 * 10, 0, 64, 64));
-			else if (tileMap[i][j] == 'k')
-				map_sprite.setTextureRect(IntRect(64 * 11, 0, 64, 64));
-			else if (tileMap[i][j] == 'l')
-				map_sprite.setTextureRect(IntRect(64 * 12, 0, 64, 64));
-			else if (tileMap[i][j] == 'm')
-				map_sprite.setTextureRect(IntRect(64 * 13, 0, 64, 64));
+			else if (tileMap[i][j] >= 'a' && tileMap[i][j] <= 'z')
+				map_sprite.setTextureRect(IntRect(64 * (tileMap[i][j] - 'a' + 1), 0, 64, 64));
 			else if (tileMap[i][j] == '0')
 				map_sprite.setTextureRect(IntRect(0, 0, 64, 64));
 

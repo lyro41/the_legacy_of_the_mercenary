@@ -1,12 +1,11 @@
 #include "pch.h"
 #include <SFML/Graphics.hpp>
 #include <locale>
-#include <cstdlib>
-#include <cmath>
 #include "Character.h"
 #include "Map.h"
 #include "Objects.h"
 #include "View.h"
+#include "Geometry.h"
 
 
 int main()
@@ -34,8 +33,8 @@ int main()
 
     while (window.isOpen())
     {
-        float Time = clock.getElapsedTime().asMicroseconds();
-        float time_environment = clock.getElapsedTime().asSeconds();
+        double Time = clock.getElapsedTime().asMicroseconds();
+        double time_environment = clock.getElapsedTime().asSeconds();
 
         clock.restart();
         Time /= 500;

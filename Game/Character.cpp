@@ -1,9 +1,12 @@
 #include "pch.h"
 #include "Character.h"
+#include "Geometry.h"
+#include <iostream>
 
+const int TILE_SIZE = 64;
+const double MIN_TRAIL = 1e-8 + 0.25;
 
-
-Character::Character(String title_pers, int X, int Y, float width_sprite, float height_sprite, float Speed)
+Character::Character(String title_pers, int X, int Y, double width_sprite, double height_sprite, double Speed)
 {
 	ws = width_sprite;
 	hs = height_sprite;
@@ -19,7 +22,7 @@ Character::Character(String title_pers, int X, int Y, float width_sprite, float 
 
 
 
-void Character::Update(float time, Objects &objects, Camera &camera, Inventory &inventory, RenderWindow &window)
+void Character::Update(double time, Objects &objects, Camera &camera, Inventory &inventory, RenderWindow &window)
 {
 	prev_y = y;
 	prev_x = x;
@@ -105,22 +108,22 @@ void Character::Update(float time, Objects &objects, Camera &camera, Inventory &
 	y += ay * time;
 
 	speed = 0;
+	this->InteractionWithMap("static", window, objects, inventory);
 
 	sprite.setPosition(x, y);
-	this->InteractionWithMap("static", window, objects, inventory);
 
 }
 
 
 
-float Character::GetCharacterCoordinateX()
+double Character::GetCharacterCoordinateX()
 {
 	return x;
 }
 
 
 
-float Character::GetCharacterCoordinateY()
+double Character::GetCharacterCoordinateY()
 {
 	return y;
 }
@@ -138,15 +141,42 @@ void Character::InteractionWithMap(String command, RenderWindow &window, Objects
 {
 	if (command == "static")
 	{
-		for (int i = y / 64; i < (y + hs) / 64; ++i)
+		for (int boxY = static_cast<int>(y) / TILE_SIZE; boxY <= static_cast<int>(y + hs) / TILE_SIZE; ++boxY)
 		{
-			for (int j = x / 64; j < (x + ws) / 64; ++j)
+			for (int boxX = static_cast<int>(x) / TILE_SIZE; boxX <= static_cast<int>(x + ws) / TILE_SIZE; ++boxX)
 			{
-				if (objects.objects_map[i][j] == '0')
+				if (objects.objects_map[boxY][boxX] == '0')
 				{
-					if (ax == 0) y = i * 64 + 64 * (ay < 0) - hs * (ay > 0);
-					else if (ay == 0) x = j * 64 + 64 * (ax < 0) - ws * (ax > 0);
+					Point choice(x, y);
+					Line path(Point(prev_x, prev_y), Point(x, y));
+					double distAB = path.vectorize().abs();
+					double tx = boxX * TILE_SIZE, ty = boxY * TILE_SIZE;
+					Point found[4] = {
+						intersection(path, Line(Point(tx, ty), Point(tx + TILE_SIZE, ty))),
+						intersection(path, Line(Point(tx, ty), Point(tx, ty + TILE_SIZE))),
+						intersection(path, Line(Point(tx + TILE_SIZE, ty + TILE_SIZE), Point(tx, ty + TILE_SIZE))),
+						intersection(path, Line(Point(tx + TILE_SIZE, ty + TILE_SIZE), Point(tx + TILE_SIZE, ty)))
+					};
+					for (int i = 0; i < 4; ++i)
+					{
+						if (dotProduct(Vector(found[i], path.p1), Vector(found[i], path.p2)) < 0)
+						{
+							bool U = objects.objects_map[static_cast<int>(found[i].x / TILE_SIZE)][static_cast<int>((found[i].y - MIN_TRAIL) / TILE_SIZE)] != '0';
+							bool D = objects.objects_map[static_cast<int>(found[i].x / TILE_SIZE)][static_cast<int>((found[i].y + MIN_TRAIL) / TILE_SIZE)] != '0';
+							bool L = objects.objects_map[static_cast<int>((found[i].x - MIN_TRAIL) / TILE_SIZE)][static_cast<int>(found[i].y / TILE_SIZE)] != '0';
+							bool R = objects.objects_map[static_cast<int>((found[i].x + MIN_TRAIL) / TILE_SIZE)][static_cast<int>(found[i].y / TILE_SIZE)] != '0';
+							if ((U ^ D || L ^ R) && Vector(path.p1, found[i]).abs() < distAB)
+							{
+								distAB = Vector(path.p1, found[i]).abs();
+								choice = found[i];
+							}
+						}
+					}
+					x = choice.x - (ax ? ax / std::fabs(ax) : 0) * (choice.x == static_cast<int>(choice.x)) * 0.25;
+					y = choice.y - (ay ? ay / std::fabs(ay) : 0) * (choice.y == static_cast<int>(choice.y)) * 0.25;
+					return;
 				}
+
 			}
 		}
 	}

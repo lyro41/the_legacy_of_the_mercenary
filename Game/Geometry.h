@@ -5,13 +5,7 @@
 #include <cmath>
 #include <cstdlib>
 
-namespace geom
-{
-	class Point;
-	class Segment;
-	class Line;
-	class Vector;
-}
+class Vector;
 
 class Point
 {
@@ -21,7 +15,7 @@ public:
 
 	Point();
 	Point(double x, double y);
-
+	Point operator + (Vector v2);
 };
 
 class Vector
@@ -31,9 +25,12 @@ public:
 	double x, y;
 
 	Vector(double x = 0, double y = 0);
+	Vector(Point p1, Point p2);
 	Vector operator * (double k);
+	Vector operator / (double k);
 	Vector operator + (Vector v2);
 	double abs();
+	Vector normalize(double k);
 };
 
 class Segment
@@ -44,7 +41,7 @@ public:
 
 	Segment();
 	Segment(Point p1, Point p2);
-	Vector Vectorize();
+	Vector vectorize();
 };
 
 class Line
@@ -52,8 +49,20 @@ class Line
 
 public:
 	Point p1, p2;
+
 	Line();
 	Line(Point p1, Point p2);
+	Vector vectorize();
 };
+
+double distance(Line line, Point p);
+
+Point intersection(Line AB, Line CD);
+
+double dotProduct(Vector v1, Vector v2);
+
+double crossProduct(Vector v1, Vector v2);
+
+const double NO_POINT_X = -738264;
 
 #endif // GEOMETRY_H
