@@ -7,6 +7,7 @@
 #include "Map.h"
 #include "View.h"
 #include "Inventory.h"
+#include "Geometry.h"
 
 using namespace sf;
 

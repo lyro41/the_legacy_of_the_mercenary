@@ -4,7 +4,7 @@
 #include <iostream>
 
 const int TILE_SIZE = 64;
-const double MIN_TRAIL = 1e-8 + 0.25;
+const double MIN_TRAIL = 1e-8;
 
 Character::Character(String title_pers, int X, int Y, double width_sprite, double height_sprite, double Speed)
 {
@@ -29,6 +29,7 @@ void Character::Update(double time, Objects &objects, Camera &camera, Inventory 
 	speed = original_speed;
 	ax = 0;
 	ay = 0;
+
 
 	if (Keyboard::isKeyPressed(Keyboard::W))
 	{
@@ -141,14 +142,16 @@ void Character::InteractionWithMap(String command, RenderWindow &window, Objects
 {
 	if (command == "static")
 	{
-		for (int boxY = static_cast<int>(y) / TILE_SIZE; boxY <= static_cast<int>(y + hs) / TILE_SIZE; ++boxY)
+		for (double wy = y; wy <= y + hs; wy += hs)
 		{
-			for (int boxX = static_cast<int>(x) / TILE_SIZE; boxX <= static_cast<int>(x + ws) / TILE_SIZE; ++boxX)
+			for (double wx = x; wx <= x + ws; wx += ws)
 			{
+				int boxX = static_cast<int>(wx / TILE_SIZE);
+				int boxY = static_cast<int>(wy / TILE_SIZE);
 				if (objects.objects_map[boxY][boxX] == '0')
 				{
-					Point choice(x, y);
-					Line path(Point(prev_x, prev_y), Point(x, y));
+					Point choice(wx, wy);
+					Line path(Point(prev_x + wx - x, prev_y + wy - y), Point(wx, wy));
 					double distAB = path.vectorize().abs();
 					double tx = boxX * TILE_SIZE, ty = boxY * TILE_SIZE;
 					Point found[4] = {
@@ -161,10 +164,10 @@ void Character::InteractionWithMap(String command, RenderWindow &window, Objects
 					{
 						if (dotProduct(Vector(found[i], path.p1), Vector(found[i], path.p2)) < 0)
 						{
-							bool U = objects.objects_map[static_cast<int>(found[i].x / TILE_SIZE)][static_cast<int>((found[i].y - MIN_TRAIL) / TILE_SIZE)] != '0';
-							bool D = objects.objects_map[static_cast<int>(found[i].x / TILE_SIZE)][static_cast<int>((found[i].y + MIN_TRAIL) / TILE_SIZE)] != '0';
-							bool L = objects.objects_map[static_cast<int>((found[i].x - MIN_TRAIL) / TILE_SIZE)][static_cast<int>(found[i].y / TILE_SIZE)] != '0';
-							bool R = objects.objects_map[static_cast<int>((found[i].x + MIN_TRAIL) / TILE_SIZE)][static_cast<int>(found[i].y / TILE_SIZE)] != '0';
+							bool U = objects.objects_map[static_cast<int>((found[i].y - MIN_TRAIL) / TILE_SIZE)][static_cast<int>(found[i].x / TILE_SIZE)] != '0';
+							bool D = objects.objects_map[static_cast<int>((found[i].y + MIN_TRAIL) / TILE_SIZE)][static_cast<int>(found[i].x / TILE_SIZE)] != '0';
+							bool L = objects.objects_map[static_cast<int>(found[i].y / TILE_SIZE)][static_cast<int>((found[i].x - MIN_TRAIL) / TILE_SIZE)] != '0';
+							bool R = objects.objects_map[static_cast<int>(found[i].y / TILE_SIZE)][static_cast<int>((found[i].x + MIN_TRAIL) / TILE_SIZE)] != '0';
 							if ((U ^ D || L ^ R) && Vector(path.p1, found[i]).abs() < distAB)
 							{
 								distAB = Vector(path.p1, found[i]).abs();
@@ -172,8 +175,15 @@ void Character::InteractionWithMap(String command, RenderWindow &window, Objects
 							}
 						}
 					}
-					x = choice.x - (ax ? ax / std::fabs(ax) : 0) * (choice.x == static_cast<int>(choice.x)) * 0.25;
-					y = choice.y - (ay ? ay / std::fabs(ay) : 0) * (choice.y == static_cast<int>(choice.y)) * 0.25;
+					double dx = choice.x - (ax ? ax / std::fabs(ax) : 0) * (choice.x == static_cast<int>(choice.x)) * 0.25 - wx;
+					double dy = choice.y - (ay ? ay / std::fabs(ay) : 0) * (choice.y == static_cast<int>(choice.y)) * 0.25 - wy;
+					if (objects.objects_map[static_cast<int>((y + dy) / 64)][static_cast<int>((x + dx) / 64)] == '0'
+						|| objects.objects_map[static_cast<int>((y + dy + hs) / 64)][static_cast<int>((x + dx) / 64)] == '0'
+						|| objects.objects_map[static_cast<int>((y + dy) / 64)][static_cast<int>((x + dx + ws) / 64)] == '0'
+						|| objects.objects_map[static_cast<int>((y + dy + hs) / 64)][static_cast<int>((x + dx + ws) / 64)] == '0'
+						) continue;
+					x += dx;
+					y += dy;
 					return;
 				}
 
