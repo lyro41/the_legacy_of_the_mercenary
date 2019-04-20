@@ -93,12 +93,7 @@ void Character::Update(double time, Objects &objects, Camera &camera, Inventory 
 	
 
 
-	if (Keyboard::isKeyPressed(Keyboard::I))
-	{
-		if (inventory.GetStatus()) inventory.Close(window);
-		else inventory.Open(window);
-	}
-	else if (Keyboard::isKeyPressed(Keyboard::E))
+	if (Keyboard::isKeyPressed(Keyboard::E))
 	{
 		this->InteractionWithMap("loot_check", window, objects, inventory);
 	}

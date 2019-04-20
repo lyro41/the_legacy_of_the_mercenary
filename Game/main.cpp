@@ -1,5 +1,6 @@
 #include "pch.h"
 #include <SFML/Graphics.hpp>
+#include "windows.h"
 #include <locale>
 #include "Character.h"
 #include "Map.h"
@@ -17,7 +18,7 @@ int main()
 
 
     RenderWindow window(VideoMode(1920, 1080), "");
-    //window.setVerticalSyncEnabled(true); // Âåðòèêàëüíàÿ ñèíõðîíèçàöèÿ
+    //window.setVerticalSyncEnabled(true);
 
 
     Map location("Map.end.blur.PNG", "grass.PNG");
@@ -43,9 +44,26 @@ int main()
         Event event;
         while (window.pollEvent(event))
         {
-            if (event.type == Event::Closed || (event.type == Event::KeyPressed && event.key.code == Keyboard::Escape))
-            window.close();
+            if (event.type == Event::Closed || (event.type == Event::KeyPressed && event.key.code == Keyboard::Escape)) window.close();
+			else if (event.type == Event::KeyPressed && event.key.code == sf::Keyboard::I) inventory.status = true;
         }
+
+
+		if (inventory.status)
+		{
+			camera.camera_view.reset(FloatRect(0, 0, 1920, 1080));
+			window.setView(camera.camera_view);
+			while (window.isOpen() && inventory.status)
+			{
+				while (window.pollEvent(event))
+				{
+					if (event.type == Event::Closed) window.close();
+					else if (event.type == Event::KeyPressed && (event.key.code == Keyboard::Escape || event.key.code == sf::Keyboard::I)) inventory.status = false;
+				}
+				inventory.Open(window);
+			}
+		}
+
 
         Hero.Update(Time, objects, camera, inventory, window);
 

@@ -13,8 +13,7 @@ class Point
 public:
 	double x, y;
 
-	Point();
-	Point(double x, double y);
+	Point(double x = 0, double y = 0);
 	Point operator + (Vector v2);
 };
 
