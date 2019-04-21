@@ -43,6 +43,16 @@ Point Point::operator + (Vector v2)
 	return Point(x + v2.x, y + v2.y);
 }
 
+bool Point::operator == (Point p2)
+{
+	return (x == p2.x && y == p2.y);
+}
+
+bool Point::operator != (Point p2)
+{
+	return !(x == p2.x && y == p2.y);
+}
+
 
 Segment::Segment() {}
 

@@ -1,0 +1,7 @@
+dir: items/familiar_sword.PNG
+
+size: 1x2
+
+description: {
+	my familiar sword
+}

@@ -1,17 +1,8 @@
-﻿  Character.cpp
-d:\coding\game\game\character.cpp(11): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-d:\coding\game\game\character.cpp(12): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-d:\coding\game\game\character.cpp(20): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-d:\coding\game\game\character.cpp(101): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-d:\coding\game\game\character.cpp(109): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  Inventory.cpp
-d:\coding\game\game\inventory.cpp(68): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\coding\game\game\inventory.cpp(70): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\coding\game\game\inventory.cpp(71): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\coding\game\game\inventory.cpp(78): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\coding\game\game\inventory.cpp(84): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  main.cpp
-d:\coding\game\game\main.cpp(37): warning C4244: 'initializing': conversion from 'sf::Int64' to 'double', possible loss of data
-d:\coding\game\game\main.cpp(75): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+﻿  Inventory.cpp
+d:\coding\game\game\inventory.cpp(47): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\coding\game\game\inventory.cpp(49): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\coding\game\game\inventory.cpp(50): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\coding\game\game\inventory.cpp(56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Properties.cpp
   Generating Code...
   Game.vcxproj -> D:\Coding\Game\x64\Debug\Game.exe

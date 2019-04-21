@@ -15,6 +15,8 @@ public:
 
 	Point(double x = 0, double y = 0);
 	Point operator + (Vector v2);
+	bool operator == (Point p2);
+	bool operator != (Point p2);
 };
 
 class Vector

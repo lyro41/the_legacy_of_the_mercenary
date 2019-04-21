@@ -7,32 +7,9 @@
 #include <unordered_map>
 #include <string>
 #include "Geometry.h"
+#include "Properties.h"
 
 using namespace sf;
-
-
-
-class Properties
-{
-
-public:
-	Image image;
-	Texture texture;
-	Sprite sprite;
-	std::string description;
-	Point size;
-
-	Properties(String dir, std::string description, Point size);
-
-};
-
-
-
-//std::unordered_map<std::string, Properties*> properties;
-
-
-
-//void mapFiller();
 
 
 
@@ -44,7 +21,7 @@ private:
 	const int width = 13, height = 8;
 	const int LEFT_SPACE = 52, TOP_SPACE = 128;
 
-	std::vector< std::vector<std::string> > inventory;
+	std::vector< std::vector<std::wstring> > inventory;
 	Image inventory_box_image;
 	Texture inventory_box_texture;
 	Sprite inventory_box;
@@ -57,7 +34,7 @@ public:
 
 	Inventory();
 	void Close(RenderWindow &window);
-	void Open(RenderWindow &window);
+	void Open(RenderWindow &window, std::unordered_map<std::wstring, Properties*> &properties);
 	void AddToInventory(char obj, RenderWindow &window);
 
 };

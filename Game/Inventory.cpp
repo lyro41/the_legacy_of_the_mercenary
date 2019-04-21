@@ -2,25 +2,6 @@
 #include "Inventory.h"
 
 
-//extern std::unordered_map<std::string, Properties*> properties;
-
-
-
-/*void mapFiller()
-{
-	properties.insert(std::make_pair("familiar_sword", new Properties("items/familiar_sword.PNG", "", Point(1, 2))));
-}*/
-
-
-
-Properties::Properties(String dir, std::string description, Point size) : size(size), description(description)
-{
-	image.loadFromFile("images/" + dir);
-	texture.loadFromImage(image);
-	sprite.setTexture(texture);
-};
-
-
 
 Inventory::Inventory()
 {
@@ -40,7 +21,7 @@ Inventory::Inventory()
 
 	for (int i = 0; i < height; ++i)
 	{
-		inventory[i] = std::vector<std::string>(width, "");
+		inventory[i] = std::vector<std::wstring>(width, L"EMPTY");
 	}
 
 }
@@ -54,32 +35,23 @@ void Inventory::Close(RenderWindow &window)
 
 
 
-void Inventory::Open(RenderWindow &window)
+void Inventory::Open(RenderWindow &window, std::unordered_map<std::wstring, Properties*> &properties)
 {
 	window.clear();
 	for (int j = 0; j < width; ++j)
 	{
 		for (int i = 0; i < height; ++i)
 		{
-			if (inventory[i][j] != "")
+			if (properties[inventory[i][j]]->size != Point(1, 1))
 			{
-				if (inventory[i + 1][j] != "")
-				{
-					inventory_box.setPosition(LEFT_SPACE + j * 66, TOP_SPACE + i * 66);
-					window.draw(inventory_box);
-					inventory_box_filler_top.setPosition(LEFT_SPACE + j * 66, TOP_SPACE + i * 66 + 64);
-					inventory_box_filler_bottom.setPosition(LEFT_SPACE + j * 66, TOP_SPACE + i * 66 + 69);
-					window.draw(inventory_box_filler_top);
-					window.draw(inventory_box_filler_bottom);
-					++i;
-				}
-				else
-				{
-					inventory_box.setPosition(LEFT_SPACE + j * 66, TOP_SPACE + i * 66);
-					window.draw(inventory_box);
-				}
+				inventory_box.setPosition(LEFT_SPACE + j * 66, TOP_SPACE + i * 66);
+				window.draw(inventory_box);
+				inventory_box_filler_top.setPosition(LEFT_SPACE + j * 66, TOP_SPACE + i * 66 + 64);
+				inventory_box_filler_bottom.setPosition(LEFT_SPACE + j * 66, TOP_SPACE + i * 66 + 69);
+				window.draw(inventory_box_filler_top);
+				window.draw(inventory_box_filler_bottom);
 			}
-			else
+			else if (inventory[i][j] != L"SEE_TOP")
 			{
 				inventory_box.setPosition(LEFT_SPACE + j * 66, TOP_SPACE + i * 66);
 				window.draw(inventory_box);
@@ -96,7 +68,7 @@ void Inventory::Open(RenderWindow &window)
 
 void Inventory::AddToInventory(char obj, RenderWindow &window)
 {
-	for (int i = 0; i < 8; ++i)
+	/*for (int i = 0; i < 8; ++i)
 	{
 		for (int j = 0; j < 16; ++j)
 		{
@@ -106,5 +78,5 @@ void Inventory::AddToInventory(char obj, RenderWindow &window)
 				return;
 			}
 		}
-	}
+	}*/
 }

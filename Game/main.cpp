@@ -7,6 +7,7 @@
 #include "Objects.h"
 #include "View.h"
 #include "Geometry.h"
+#include "Properties.h"
 
 
 int main()
@@ -26,6 +27,7 @@ int main()
 	Objects objects;
 	Camera camera(FloatRect(0, 0, 1920, 1080));
 	Inventory inventory;
+	PropertyList propertyList(L"Properties/");
 
 
 
@@ -60,7 +62,7 @@ int main()
 					if (event.type == Event::Closed) window.close();
 					else if (event.type == Event::KeyPressed && (event.key.code == Keyboard::Escape || event.key.code == sf::Keyboard::I)) inventory.status = false;
 				}
-				inventory.Open(window);
+				inventory.Open(window, propertyList.properties);
 			}
 		}
 
