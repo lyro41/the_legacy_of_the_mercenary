@@ -22,7 +22,7 @@ Character::Character(String title_pers, int X, int Y, double width_sprite, doubl
 
 
 
-void Character::Update(double time, Objects &objects, Camera &camera, Inventory &inventory, RenderWindow &window)
+void Character::Update(double time, Objects &objects, Camera &camera, Inventory &inventory, PropertyList &properties, RenderWindow &window)
 {
 	prev_y = y;
 	prev_x = x;
@@ -95,7 +95,7 @@ void Character::Update(double time, Objects &objects, Camera &camera, Inventory 
 
 	if (Keyboard::isKeyPressed(Keyboard::E))
 	{
-		this->InteractionWithMap("loot_check", window, objects, inventory);
+		this->InteractionWithMap("loot_check", window, objects, inventory, properties);
 	}
 
 	camera.GetCharacterCoordinateView(this->GetCharacterCoordinateX(), this->GetCharacterCoordinateY());
@@ -104,7 +104,7 @@ void Character::Update(double time, Objects &objects, Camera &camera, Inventory 
 	y += ay * time;
 
 	speed = 0;
-	this->InteractionWithMap("static", window, objects, inventory);
+	this->InteractionWithMap("static", window, objects, inventory, properties);
 
 	sprite.setPosition(x, y);
 
@@ -133,7 +133,7 @@ Sprite Character::GetSprite()
 
 
 
-void Character::InteractionWithMap(String command, RenderWindow &window, Objects &objects, Inventory inventory)
+void Character::InteractionWithMap(String command, RenderWindow &window, Objects &objects, Inventory inventory, PropertyList &properties)
 {
 	if (command == "static")
 	{
@@ -143,7 +143,7 @@ void Character::InteractionWithMap(String command, RenderWindow &window, Objects
 			{
 				int boxX = static_cast<int>(wx / TILE_SIZE);
 				int boxY = static_cast<int>(wy / TILE_SIZE);
-				if (objects.objects_map[boxY][boxX] == '0')
+				if (objects.objMap[boxY][boxX] == '0')
 				{
 					Point choice(wx, wy);
 					Line path(Point(prev_x + wx - x, prev_y + wy - y), Point(wx, wy));
@@ -159,10 +159,10 @@ void Character::InteractionWithMap(String command, RenderWindow &window, Objects
 					{
 						if (dotProduct(Vector(found[i], path.p1), Vector(found[i], path.p2)) < 0)
 						{
-							bool U = objects.objects_map[static_cast<int>((found[i].y - MIN_TRAIL) / TILE_SIZE)][static_cast<int>(found[i].x / TILE_SIZE)] != '0';
-							bool D = objects.objects_map[static_cast<int>((found[i].y + MIN_TRAIL) / TILE_SIZE)][static_cast<int>(found[i].x / TILE_SIZE)] != '0';
-							bool L = objects.objects_map[static_cast<int>(found[i].y / TILE_SIZE)][static_cast<int>((found[i].x - MIN_TRAIL) / TILE_SIZE)] != '0';
-							bool R = objects.objects_map[static_cast<int>(found[i].y / TILE_SIZE)][static_cast<int>((found[i].x + MIN_TRAIL) / TILE_SIZE)] != '0';
+							bool U = objects.objMap[static_cast<int>((found[i].y - MIN_TRAIL) / TILE_SIZE)][static_cast<int>(found[i].x / TILE_SIZE)] != '0';
+							bool D = objects.objMap[static_cast<int>((found[i].y + MIN_TRAIL) / TILE_SIZE)][static_cast<int>(found[i].x / TILE_SIZE)] != '0';
+							bool L = objects.objMap[static_cast<int>(found[i].y / TILE_SIZE)][static_cast<int>((found[i].x - MIN_TRAIL) / TILE_SIZE)] != '0';
+							bool R = objects.objMap[static_cast<int>(found[i].y / TILE_SIZE)][static_cast<int>((found[i].x + MIN_TRAIL) / TILE_SIZE)] != '0';
 							if ((U ^ D || L ^ R) && Vector(path.p1, found[i]).abs() < distAB)
 							{
 								distAB = Vector(path.p1, found[i]).abs();
@@ -172,10 +172,10 @@ void Character::InteractionWithMap(String command, RenderWindow &window, Objects
 					}
 					double dx = choice.x - (ax ? ax / std::fabs(ax) : 0) * (choice.x == static_cast<int>(choice.x)) * 0.25 - wx;
 					double dy = choice.y - (ay ? ay / std::fabs(ay) : 0) * (choice.y == static_cast<int>(choice.y)) * 0.25 - wy;
-					if (objects.objects_map[static_cast<int>((y + dy) / 64)][static_cast<int>((x + dx) / 64)] == '0'
-						|| objects.objects_map[static_cast<int>((y + dy + hs) / 64)][static_cast<int>((x + dx) / 64)] == '0'
-						|| objects.objects_map[static_cast<int>((y + dy) / 64)][static_cast<int>((x + dx + ws) / 64)] == '0'
-						|| objects.objects_map[static_cast<int>((y + dy + hs) / 64)][static_cast<int>((x + dx + ws) / 64)] == '0'
+					if (objects.objMap[static_cast<int>((y + dy) / 64)][static_cast<int>((x + dx) / 64)] == '0'
+						|| objects.objMap[static_cast<int>((y + dy + hs) / 64)][static_cast<int>((x + dx) / 64)] == '0'
+						|| objects.objMap[static_cast<int>((y + dy) / 64)][static_cast<int>((x + dx + ws) / 64)] == '0'
+						|| objects.objMap[static_cast<int>((y + dy + hs) / 64)][static_cast<int>((x + dx + ws) / 64)] == '0'
 						) continue;
 					x += dx;
 					y += dy;
@@ -188,42 +188,12 @@ void Character::InteractionWithMap(String command, RenderWindow &window, Objects
 	else if (command == "loot_check")
 	{
 
-		int Y = static_cast<int> (y);
-		int X = static_cast<int> (x);
-
-		if (ay > 0)
+		int i = static_cast<int>(y + (hs / 2.0) * (1 + (ay > 0))) / 64;
+		int j = static_cast<int>(x + ws * (ax > 0)) / 64;
+		/*if (properties.objects[objects.objects_map[i][j]]->interaction == "lootable")
 		{
-			
-			if (objects.ObjectState(objects.objects_map[Y / 64 + 1][X / 64]) == "lootable")
-			{
-				inventory.AddToInventory(objects.objects_map[Y / 64 + 1][X / 64], window);
-				objects.objects_map[Y / 64 + 1][X / 64] = ' ';
-			}
-			
-		}
-		else if (ay < 0)
-		{
-			if (objects.ObjectState(objects.objects_map[Y / 64][X / 64]) == "lootable")
-			{
-				inventory.AddToInventory(objects.objects_map[Y / 64][X / 64], window);
-				objects.objects_map[Y / 64][X / 64] = ' ';
-			}
-		}
-		else if (ax > 0)
-		{
-			if (objects.ObjectState(objects.objects_map[Y / 64 + 1][X / 64 + 1]) == "lootable")
-			{
-				inventory.AddToInventory(objects.objects_map[Y / 64 + 1][X / 64 + 1], window);
-				objects.objects_map[Y / 64 + 1][X / 64 + 1] = ' ';
-			}
-		}
-		else if (ax < 0)
-		{
-			if (objects.ObjectState(objects.objects_map[Y / 64 + 1][X / 64 - 1]) == "lootable")
-			{
-				inventory.AddToInventory(objects.objects_map[Y / 64 + 1][X / 64 - 1], window);
-				objects.objects_map[Y / 64 + 1][X / 64 - 1] = ' ';
-			}
-		}
+			inventory.AddToInventory(objects.objects_map[i][j], properties.items, window);
+			objects.objects_map[i][j] = ' ';
+		}*/
 	}
 }

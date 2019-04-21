@@ -22,12 +22,12 @@ int main()
     //window.setVerticalSyncEnabled(true);
 
 
-    Map location("Map.end.blur.PNG", "grass.PNG");
+    Map location("Map.end.blur.PNG", "grass.PNG", "locations/main/");
     Character Hero("hero.PNG", 200, 200, 30, 60, 0.4);
-	Objects objects;
+	Objects objects("locations/main/");
 	Camera camera(FloatRect(0, 0, 1920, 1080));
 	Inventory inventory;
-	PropertyList propertyList(L"Properties/");
+	PropertyList properties(L"properties/");
 
 
 
@@ -62,12 +62,12 @@ int main()
 					if (event.type == Event::Closed) window.close();
 					else if (event.type == Event::KeyPressed && (event.key.code == Keyboard::Escape || event.key.code == sf::Keyboard::I)) inventory.status = false;
 				}
-				inventory.Open(window, propertyList.properties);
+				inventory.Open(window, properties.items);
 			}
 		}
 
 
-        Hero.Update(Time, objects, camera, inventory, window);
+        Hero.Update(Time, objects, camera, inventory, properties, window);
 
         window.setView(camera.camera_view);
 

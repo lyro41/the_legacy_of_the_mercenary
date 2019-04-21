@@ -1,8 +1,7 @@
-﻿  Inventory.cpp
-d:\coding\game\game\inventory.cpp(47): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\coding\game\game\inventory.cpp(49): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\coding\game\game\inventory.cpp(50): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\coding\game\game\inventory.cpp(56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  Properties.cpp
-  Generating Code...
+﻿  Objects.cpp
+d:\coding\game\game\objects.cpp(30): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+d:\coding\game\game\objects.cpp(31): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+d:\coding\game\game\objects.cpp(40): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+d:\coding\game\game\objects.cpp(51): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\coding\game\game\objects.cpp(57): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   Game.vcxproj -> D:\Coding\Game\x64\Debug\Game.exe

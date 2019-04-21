@@ -24,6 +24,9 @@ Inventory::Inventory()
 		inventory[i] = std::vector<std::wstring>(width, L"EMPTY");
 	}
 
+	inventory[0][0] = L"familiar_sword";
+	inventory[1][0] = L"SEE_TOP";
+
 }
 
 
@@ -35,14 +38,14 @@ void Inventory::Close(RenderWindow &window)
 
 
 
-void Inventory::Open(RenderWindow &window, std::unordered_map<std::wstring, Properties*> &properties)
+void Inventory::Open(RenderWindow &window, std::unordered_map<std::wstring, Properties*> &items)
 {
 	window.clear();
 	for (int j = 0; j < width; ++j)
 	{
 		for (int i = 0; i < height; ++i)
 		{
-			if (properties[inventory[i][j]]->size != Point(1, 1))
+			if (items[inventory[i][j]]->size != Point(1, 1))
 			{
 				inventory_box.setPosition(LEFT_SPACE + j * 66, TOP_SPACE + i * 66);
 				window.draw(inventory_box);
@@ -50,23 +53,31 @@ void Inventory::Open(RenderWindow &window, std::unordered_map<std::wstring, Prop
 				inventory_box_filler_bottom.setPosition(LEFT_SPACE + j * 66, TOP_SPACE + i * 66 + 69);
 				window.draw(inventory_box_filler_top);
 				window.draw(inventory_box_filler_bottom);
+
+				if (inventory[i][j] != L"EMPTY")
+				{
+					items[inventory[i][j]]->sprite.setPosition(LEFT_SPACE + j * 66, TOP_SPACE + i * 66);
+					window.draw(items[inventory[i][j]]->sprite);
+				}
 			}
 			else if (inventory[i][j] != L"SEE_TOP")
 			{
 				inventory_box.setPosition(LEFT_SPACE + j * 66, TOP_SPACE + i * 66);
 				window.draw(inventory_box);
+				if (inventory[i][j] != L"EMPTY")
+				{
+					items[inventory[i][j]]->sprite.setPosition(LEFT_SPACE + j * 66, TOP_SPACE + i * 66);
+					window.draw(items[inventory[i][j]]->sprite);
+				}
 			}
 		}
 	}
-	/*
-		show items
-	*/
 	window.display();
 }
 
 
 
-void Inventory::AddToInventory(char obj, RenderWindow &window)
+void Inventory::AddToInventory(std::wstring obj, std::unordered_map<std::wstring, Properties*> &items, RenderWindow &window)
 {
 	/*for (int i = 0; i < 8; ++i)
 	{
@@ -79,4 +90,11 @@ void Inventory::AddToInventory(char obj, RenderWindow &window)
 			}
 		}
 	}*/
+	for (int i = 0; i < height; ++i)
+	{
+		for (int j = 0; j < width; ++j)
+		{
+
+		}
+	}
 }

@@ -1,0 +1,7 @@
+dir: grass/
+
+size: 72x64
+
+frames: 5
+
+interaction: static

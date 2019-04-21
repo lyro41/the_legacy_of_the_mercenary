@@ -6,11 +6,28 @@ const double MIN_TRAIL = 1e-8;
 
 
 
-Map::Map(String map_title, String title_grass)
+Map::Map(String map_title, String title_grass, std::string dir)
 {
 	map_image.loadFromFile("images/" + map_title);
 	map_texture.loadFromImage(map_image);
 	map_sprite.setTexture(map_texture);
+	LoadMap(dir + "map.TXT");
+}
+
+
+
+void Map::LoadMap(std::string dir)
+{
+	std::ifstream fin(dir);
+	std::string buff;
+	while (!fin.eof())
+	{
+		std::getline(fin, buff);
+		tileMap.push_back(buff);
+	}
+	height_map = tileMap.size();
+	width_map = tileMap[0].length();
+	fin.close();
 }
 
 

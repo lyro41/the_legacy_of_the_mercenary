@@ -34,8 +34,8 @@ public:
 
 	Inventory();
 	void Close(RenderWindow &window);
-	void Open(RenderWindow &window, std::unordered_map<std::wstring, Properties*> &properties);
-	void AddToInventory(char obj, RenderWindow &window);
+	void Open(RenderWindow &window, std::unordered_map<std::wstring, Properties*> &items);
+	void AddToInventory(std::wstring obj, std::unordered_map<std::wstring, Properties*> &items, RenderWindow &window);
 
 };
 

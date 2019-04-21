@@ -4,6 +4,9 @@
 
 #include <SFML/Graphics.hpp>
 #include <string>
+#include <vector>
+#include <fstream>
+#include <map>
 
 using namespace sf;
 
@@ -18,35 +21,16 @@ private:
 
 public:
 
-	static const int height_map = 21;
-	static const int width_map = 21;
-
-	std::string tileMap[height_map] = {
-		"000000000000000000000",
-		"0                   0",
-		"0       0           0",
-		"0                   0",
-		"0                   0",
-		"0         abbbbbbbbb0",
-		"0        akeeeeeeeee0",
-		"0       akeeeeeeeeee0",
-		"0      akeelhhhhhhhh0",
-		"0     akeeli        0",
-		"0     deeli         0",
-		"0     deef          0",
-		"0     deef          0",
-		"0     deef          0",
-		"0     deef          0",
-		"0     deef          0",
-		"0     deef          0",
-		"0     deef          0",
-		"0     deef          0",
-		"0     deef          0",
-		"000000000000000000000"
-	};
+	int height_map;
+	int width_map;
+	
+	std::vector<std::string> tileMap;
+	std::map<char, std::wstring> define;
 
 
-	Map(String map_title, String title_grass);
+	Map(String map_title, String title_grass, std::string dir);
+	void LoadMap(std::string dir);
+	void MapDef(std::string dir);
 	void DrawMap(RenderWindow &window);
 	
 };

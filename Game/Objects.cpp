@@ -3,7 +3,7 @@
 
 
 
-Objects::Objects()
+Objects::Objects(std::string dir)
 {
 	grass_image.loadFromFile("images/grass.PNG");
 	grass_texture.loadFromImage(grass_image);
@@ -12,6 +12,24 @@ Objects::Objects()
 	pearl_image.loadFromFile("images/pearl.PNG");
 	pearl_texture.loadFromImage(pearl_image);
 	pearl_sprite.setTexture(pearl_texture);
+
+	LoadObjects(dir + "objects.TXT");
+}
+
+
+
+void Objects::LoadObjects(std::string dir)
+{
+	std::ifstream fin(dir);
+	std::string buff;
+	while (!fin.eof())
+	{
+		std::getline(fin, buff);
+		objMap.push_back(buff);
+	}
+	height_objMap = objMap.size();
+	width_objMap = objMap[0].length();
+	fin.close();
 }
 
 
@@ -23,17 +41,17 @@ void Objects::DrawObjects(float time, RenderWindow &window)
 	if (current_frame > 4)
 		current_frame = 0;
 
-	for (int i = 0; i < height_map_for_objects; ++i)
+	for (int i = 0; i < height_objMap; ++i)
 	{
-		for (int j = 0; j < width_map_for_objects; ++j)
+		for (int j = 0; j < width_objMap; ++j)
 		{
-			if (objects_map[i][j] == ' ')
+			if (objMap[i][j] == ' ')
 			{
 				grass_sprite.setTextureRect(IntRect(72 * int(current_frame), 0, 72, 64));
 				grass_sprite.setPosition(j * 64, i * 64);
 				window.draw(grass_sprite);
 			}
-			else if (objects_map[i][j] == 'p')
+			else if (objMap[i][j] == 'p')
 			{
 				pearl_sprite.setTextureRect(IntRect(64, 64, 64, 64));
 				pearl_sprite.setPosition(j * 64, i * 64);
@@ -54,11 +72,4 @@ String Objects::ObjectState(char tile)
 		case 'p': return "lootable";
 		default: return "unknown";
 	}
-}
-
-
-
-void Objects::MovingTo(String state)
-{
-
 }

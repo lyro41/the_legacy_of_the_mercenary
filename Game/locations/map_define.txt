@@ -1,0 +1,15 @@
+0=wall
+ =grass
+a=path_a
+b=path_b
+c=path_c
+d=path_d
+e=path_e
+f=path_f
+g=path_g
+h=path_h
+i=path_i
+j=path_j
+k=path_k
+l=path_l
+m=path_m
