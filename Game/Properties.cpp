@@ -144,12 +144,7 @@ void PropertyList::ObjectFiller(std::wstring directory)
 				std::getline(fin, buff);
 			}
 
-			items.insert(std::make_pair(name.substr(0, name.find('.')), new Properties(dir, frames, interaction, size)));
-
-			/*std::cout <<
-				"dir: " << dir << '\n' <<
-				"size:" << "\n\t" << "x: " << size.x << "\n\t" << "y: " << size.y << '\n' <<
-				"description: \n" << description << '\n';*/
+			objects.insert(std::make_pair(name.substr(0, name.find('.')), new Properties(dir, frames, interaction, size)));
 
 			fin.close();
 

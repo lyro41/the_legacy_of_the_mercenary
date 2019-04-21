@@ -6,7 +6,9 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include <codecvt>
 #include <map>
+#include <iostream>
 
 using namespace sf;
 
@@ -37,6 +39,7 @@ public:
 	Objects(std::string dir);
 	void LoadObjects(std::string dir);
 	void DrawObjects(float time, RenderWindow &window);
+	void ObjDef(std::string dir);
 	String ObjectState(char tile);
 
 };

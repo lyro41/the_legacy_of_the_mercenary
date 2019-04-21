@@ -13,7 +13,8 @@ Objects::Objects(std::string dir)
 	pearl_texture.loadFromImage(pearl_image);
 	pearl_sprite.setTexture(pearl_texture);
 
-	LoadObjects(dir + "objects.TXT");
+	this->LoadObjects(dir + "objects.TXT");
+	this->ObjDef("locations/objects_define.TXT");
 }
 
 
@@ -53,12 +54,26 @@ void Objects::DrawObjects(float time, RenderWindow &window)
 			}
 			else if (objMap[i][j] == 'p')
 			{
-				pearl_sprite.setTextureRect(IntRect(64, 64, 64, 64));
 				pearl_sprite.setPosition(j * 64, i * 64);
 				window.draw(pearl_sprite);
 			}
 		}
 	}
+}
+
+
+
+void Objects::ObjDef(std::string dir)
+{
+	std::ifstream fin(dir);
+	std::string buff;
+	std::wstring_convert<std::codecvt_utf8_utf16<wchar_t> > converter;
+	while (!fin.eof())
+	{
+		getline(fin, buff);
+		define.insert(std::make_pair(buff[0], converter.from_bytes(buff.substr(2, buff.length() - 2))));
+	}
+	fin.close();
 }
 
 

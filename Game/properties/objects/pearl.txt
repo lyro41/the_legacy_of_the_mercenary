@@ -1,0 +1,7 @@
+dir: pearl/
+
+size: 64x64
+
+frames: 0
+
+interaction: lootable

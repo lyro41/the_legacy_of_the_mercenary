@@ -79,22 +79,32 @@ void Inventory::Open(RenderWindow &window, std::unordered_map<std::wstring, Prop
 
 void Inventory::AddToInventory(std::wstring obj, std::unordered_map<std::wstring, Properties*> &items, RenderWindow &window)
 {
-	/*for (int i = 0; i < 8; ++i)
+	if (items[obj]->size == Point(1, 1))
 	{
-		for (int j = 0; j < 16; ++j)
+		for (int i = 0; i < height; ++i)
 		{
-			if (inventory[i][j] == "")
+			for (int j = 0; j < width; ++j)
 			{
-				inventory[i][j] = obj;
-				return;
+				if (inventory[i][j] == L"EMPTY")
+				{
+					inventory[i][j] = obj;
+					return;
+				}
 			}
 		}
-	}*/
-	for (int i = 0; i < height; ++i)
+	}
+	else if (items[obj]->size == Point(1, 2))
 	{
-		for (int j = 0; j < width; ++j)
+		for (int i = 0; i < height - 1; ++i)
 		{
-
+			for (int j = 0; j < width; ++j)
+			{
+				if (inventory[i][j] == L"EMPTY" && inventory[i][j] == L"EMPTY")
+				{
+					inventory[i][j] = obj;
+					return;
+				}
+			}
 		}
 	}
 }

@@ -11,7 +11,9 @@ Map::Map(String map_title, String title_grass, std::string dir)
 	map_image.loadFromFile("images/" + map_title);
 	map_texture.loadFromImage(map_image);
 	map_sprite.setTexture(map_texture);
-	LoadMap(dir + "map.TXT");
+
+	this->MapDef("locations/map_define.TXT");
+	this->LoadMap(dir + "map.TXT");
 }
 
 
@@ -48,4 +50,19 @@ void Map::DrawMap(RenderWindow &window)
 			window.draw(map_sprite);
 
 		}
+}
+
+
+
+void Map::MapDef(std::string dir)
+{
+	std::ifstream fin(dir);
+	std::string buff;
+	std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+	while (!fin.eof())
+	{
+		getline(fin, buff);
+		define.insert(std::make_pair(buff[0], converter.from_bytes(buff.substr(2, buff.length() - 2))));
+	}
+	fin.close();
 }

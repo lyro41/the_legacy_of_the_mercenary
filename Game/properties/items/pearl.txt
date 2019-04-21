@@ -1,0 +1,7 @@
+dir: pearl.PNG
+
+size: 1x1
+
+description: {
+	ender pearl from minecraft
+}

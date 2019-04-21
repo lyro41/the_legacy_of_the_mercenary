@@ -133,7 +133,7 @@ Sprite Character::GetSprite()
 
 
 
-void Character::InteractionWithMap(String command, RenderWindow &window, Objects &objects, Inventory inventory, PropertyList &properties)
+void Character::InteractionWithMap(String command, RenderWindow &window, Objects &objects, Inventory &inventory, PropertyList &properties)
 {
 	if (command == "static")
 	{
@@ -190,10 +190,10 @@ void Character::InteractionWithMap(String command, RenderWindow &window, Objects
 
 		int i = static_cast<int>(y + (hs / 2.0) * (1 + (ay > 0))) / 64;
 		int j = static_cast<int>(x + ws * (ax > 0)) / 64;
-		/*if (properties.objects[objects.objects_map[i][j]]->interaction == "lootable")
+		if (properties.objects[objects.define[objects.objMap[i][j]]]->interaction == "lootable")
 		{
-			inventory.AddToInventory(objects.objects_map[i][j], properties.items, window);
-			objects.objects_map[i][j] = ' ';
-		}*/
+			inventory.AddToInventory(objects.define[objects.objMap[i][j]], properties.items, window);
+			objects.objMap[i][j] = ' ';
+		}
 	}
 }

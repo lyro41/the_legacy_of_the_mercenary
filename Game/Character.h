@@ -3,6 +3,7 @@
 #define CHARACTER_H
 
 #include <SFML/Graphics.hpp>
+#include <codecvt>
 #include "Objects.h"
 #include "Map.h"
 #include "View.h"
@@ -30,7 +31,7 @@ public:
 	double GetCharacterCoordinateX();
 	double GetCharacterCoordinateY();
 	Sprite GetSprite();
-	void InteractionWithMap(String command, RenderWindow &window, Objects &objects_map, Inventory inventory, PropertyList &properties);
+	void InteractionWithMap(String command, RenderWindow &window, Objects &objects_map, Inventory &inventory, PropertyList &properties);
 	
 };
 
