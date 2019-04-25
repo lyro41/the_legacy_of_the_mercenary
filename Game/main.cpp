@@ -51,20 +51,7 @@ int main()
         }
 
 
-		if (inventory.status)
-		{
-			camera.camera_view.reset(FloatRect(0, 0, 1920, 1080));
-			window.setView(camera.camera_view);
-			while (window.isOpen() && inventory.status)
-			{
-				while (window.pollEvent(event))
-				{
-					if (event.type == Event::Closed) window.close();
-					else if (event.type == Event::KeyPressed && (event.key.code == Keyboard::Escape || event.key.code == sf::Keyboard::I)) inventory.status = false;
-				}
-				inventory.Open(window, properties.items);
-			}
-		}
+		inventory.main(window, camera, properties);
 
 
         Hero.Update(Time, objects, camera, inventory, properties, window);
