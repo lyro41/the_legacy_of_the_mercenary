@@ -1,4 +1,16 @@
-﻿  main.cpp
-d:\coding\game\game\main.cpp(39): warning C4244: 'initializing': conversion from 'sf::Int64' to 'double', possible loss of data
-d:\coding\game\game\main.cpp(64): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+﻿  Inventory.cpp
+d:\coding\game\game\inventory.cpp(54): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\coding\game\game\inventory.cpp(59): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\coding\game\game\inventory.cpp(65): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\coding\game\game\inventory.cpp(73): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\coding\game\game\inventory.cpp(152): warning C4244: '=': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+d:\coding\game\game\inventory.cpp(153): warning C4244: '=': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
   Game.vcxproj -> D:\Coding\Game\x64\Debug\Game.exe

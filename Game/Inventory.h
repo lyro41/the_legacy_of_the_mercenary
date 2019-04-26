@@ -22,7 +22,9 @@ private:
 	const int width = 13, height = 8;
 	const int LEFT_SPACE = 52, TOP_SPACE = 128;
 
+	Sprite Dragged;
 	bool isDrag = false;
+	int x = -1, y = -1;
 
 	std::vector< std::vector<std::wstring> > inventory;
 
