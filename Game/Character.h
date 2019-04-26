@@ -17,7 +17,8 @@ class Character
 {
 
 private:
-	double prev_x = 0, prev_y = 0, x = 0, y = 0, ax = 0, ay = 0, speed = 0, original_speed = 0;
+	double prev_x = 0, prev_y = 0, x = 0, y = 0, speedAbs = 0, original_speed = 0;
+	Vector speedVector;
 	int ws = 0, hs = 0, dir = 0;
 	Image image;
 	Texture texture;
@@ -32,7 +33,7 @@ public:
 	double GetCharacterCoordinateY();
 	Sprite GetSprite();
 	void InteractionWithMap(String command, RenderWindow &window, Objects &objects_map, Inventory &inventory, PropertyList &properties);
-	
+
 };
 
 #endif // CHARACTER_H

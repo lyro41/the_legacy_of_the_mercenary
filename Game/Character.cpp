@@ -5,6 +5,7 @@
 
 const int TILE_SIZE = 64;
 const double MIN_TRAIL = 1e-8;
+const double FRAME_SPEED = 20;
 
 Character::Character(String title_pers, int X, int Y, double width_sprite, double height_sprite, double Speed)
 {
@@ -24,73 +25,75 @@ Character::Character(String title_pers, int X, int Y, double width_sprite, doubl
 
 void Character::Update(double time, Objects &objects, Camera &camera, Inventory &inventory, PropertyList &properties, RenderWindow &window)
 {
+	Hitbox rect(0, 0, 1, 1, Pi / 4);
 	prev_y = y;
 	prev_x = x;
-	speed = original_speed;
-	ax = 0;
-	ay = 0;
-
+	speedAbs = original_speed;
+	speedVector = Vector();
 
 	if (Keyboard::isKeyPressed(Keyboard::W))
 	{
-		ay -= speed;
+		speedVector = speedVector - Vector(0, speedAbs);
 		dir = 01;
 	}
 
 	if (Keyboard::isKeyPressed(Keyboard::S))
 	{
-		ay += speed;
+		speedVector = speedVector + Vector(0, speedAbs);
 		dir = 21;
-	}
-
-	if (Keyboard::isKeyPressed(Keyboard::A))
-	{
-		ax -= speed;
-		dir = 10;
 	}
 
 	if (Keyboard::isKeyPressed(Keyboard::D))
 	{
-		ax += speed;
+		speedVector = speedVector + Vector(speedAbs, 0);
 		dir = 12;
 	}
 
-	if (ax == 0 && ay == 0)
+	if (Keyboard::isKeyPressed(Keyboard::A))
+	{
+		speedVector = speedVector - Vector(speedAbs, 0);
+		dir = 10;
+	}
+
+	speedVector.normalize(speedAbs);
+
+
+	if (speedVector.abs() == 0)
 	{
 		current_frame = 1;
 		switch (dir)
 		{
-			case 01:
-				sprite.setTextureRect(IntRect(31 * static_cast<int>(current_frame), 128, 31, 60));
-				break;
-			case 10:
-				sprite.setTextureRect(IntRect(31 * static_cast<int>(current_frame), 62, 31, 60));
-				break;
-			case 12:
-				sprite.setTextureRect(IntRect(31 * static_cast<int>(current_frame), 193, 31, 60));
-				break;
-			default:
-				sprite.setTextureRect(IntRect(31 * static_cast<int>(current_frame), 0, 31, 60));
+		case 01:
+			sprite.setTextureRect(IntRect(31 * static_cast<int>(current_frame), 128, 31, 60));
+			break;
+		case 10:
+			sprite.setTextureRect(IntRect(31 * static_cast<int>(current_frame), 62, 31, 60));
+			break;
+		case 12:
+			sprite.setTextureRect(IntRect(31 * static_cast<int>(current_frame), 193, 31, 60));
+			break;
+		default:
+			sprite.setTextureRect(IntRect(31 * static_cast<int>(current_frame), 0, 31, 60));
 		}
-		
+
 	}
 	else
 	{
-		current_frame += (speed / 20 * time);
+		current_frame += (speedAbs / FRAME_SPEED * time);
 		if (current_frame > 6)
 		{
-			if (ay != 0) current_frame = 1;
-			if (ax != 0) current_frame = 2;
+			if (speedVector.y != 0) current_frame = 1;
+			if (speedVector.x != 0) current_frame = 2;
 		}
-		
-		if (ay > 0) sprite.setTextureRect(IntRect(31 * static_cast<int>(current_frame), 0, 31, 60));
-		else if (ay < 0) sprite.setTextureRect(IntRect(31 * static_cast<int>(current_frame), 128, 31, 60));
 
-		if (ax > 0) sprite.setTextureRect(IntRect(31 * static_cast<int>(current_frame), 193, 31, 60));
-		else if (ax < 0) sprite.setTextureRect(IntRect(31 * static_cast<int>(current_frame), 62, 31, 60));
+		if (speedVector.y > 0) sprite.setTextureRect(IntRect(31 * static_cast<int>(current_frame), 0, 31, 60));
+		else if (speedVector.y < 0) sprite.setTextureRect(IntRect(31 * static_cast<int>(current_frame), 128, 31, 60));
+
+		if (speedVector.x > 0) sprite.setTextureRect(IntRect(31 * static_cast<int>(current_frame), 193, 31, 60));
+		else if (speedVector.x < 0) sprite.setTextureRect(IntRect(31 * static_cast<int>(current_frame), 62, 31, 60));
 	}
 
-	
+
 
 
 	if (Keyboard::isKeyPressed(Keyboard::E))
@@ -100,10 +103,10 @@ void Character::Update(double time, Objects &objects, Camera &camera, Inventory 
 
 	camera.GetCharacterCoordinateView(this->GetCharacterCoordinateX(), this->GetCharacterCoordinateY());
 
-	x += ax * time;
-	y += ay * time;
+	x += speedVector.x * time;
+	y += speedVector.y * time;
 
-	speed = 0;
+	speedAbs = 0;
 	this->InteractionWithMap("static", window, objects, inventory, properties);
 
 	sprite.setPosition(x, y);
@@ -170,8 +173,8 @@ void Character::InteractionWithMap(String command, RenderWindow &window, Objects
 							}
 						}
 					}
-					double dx = choice.x - (ax ? ax / std::fabs(ax) : 0) * (choice.x == static_cast<int>(choice.x)) * 0.25 - wx;
-					double dy = choice.y - (ay ? ay / std::fabs(ay) : 0) * (choice.y == static_cast<int>(choice.y)) * 0.25 - wy;
+					double dx = choice.x - (speedVector.x ? speedVector.x / std::fabs(speedVector.x) : 0) * (choice.x == static_cast<int>(choice.x)) * 0.25 - wx;
+					double dy = choice.y - (speedVector.y ? speedVector.y / std::fabs(speedVector.y) : 0) * (choice.y == static_cast<int>(choice.y)) * 0.25 - wy;
 					if (objects.objMap[static_cast<int>((y + dy) / 64)][static_cast<int>((x + dx) / 64)] == '0'
 						|| objects.objMap[static_cast<int>((y + dy + hs) / 64)][static_cast<int>((x + dx) / 64)] == '0'
 						|| objects.objMap[static_cast<int>((y + dy) / 64)][static_cast<int>((x + dx + ws) / 64)] == '0'
@@ -188,8 +191,8 @@ void Character::InteractionWithMap(String command, RenderWindow &window, Objects
 	else if (command == "loot_check")
 	{
 
-		int i = static_cast<int>(y + (hs / 2.0) * (1 + (ay > 0))) / 64;
-		int j = static_cast<int>(x + ws * (ax > 0)) / 64;
+		int i = static_cast<int>(y + (hs / 2.0) * (1 + (speedVector.y > 0))) / 64;
+		int j = static_cast<int>(x + ws * (speedVector.x > 0)) / 64;
 		if (properties.objects[objects.define[objects.objMap[i][j]]]->interaction == "lootable")
 		{
 			inventory.AddToInventory(objects.define[objects.objMap[i][j]], properties.items, window);

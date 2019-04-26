@@ -1,8 +1,6 @@
 #include "pch.h"
 #include "Geometry.h"
 
-
-
 Point::Point(double x, double y) : x(x), y(y) {}
 
 Vector::Vector(double x, double y) : x(x), y(y) {}
@@ -28,19 +26,30 @@ Vector Vector::operator + (Vector v2)
 	return Vector(x + v2.x, y + v2.y);
 }
 
+Vector Vector::operator - (Vector v2)
+{
+	return Vector(x - v2.x, y - v2.y);
+}
+
 double Vector::abs()
 {
 	return std::sqrt(x * x + y * y);
 }
 
-Vector Vector::normalize(double k)
+Vector Vector::normalize(double k = 1.0)
 {
-	return Vector(x * k / abs(), y * k / abs());
+	return Vector(x * k / this->abs(), y * k / this->abs());
 }
 
 Point Point::operator + (Vector v2)
 {
 	return Point(x + v2.x, y + v2.y);
+}
+
+void Vector::operator = (Vector v2)
+{
+	x = v2.x;
+	y = v2.y;
 }
 
 bool Point::operator == (Point p2)
@@ -97,3 +106,61 @@ Point intersection(Line AB, Line CD)
 	Vector CtoD = CD.vectorize() * h2 / h1;
 	return Point(CD.p1.x + CtoD.x, CD.p1.y + CtoD.y);
 }
+
+bool isIntersected(Hitbox h1, Hitbox h2)
+{
+	return false;
+}
+
+Hitbox::Hitbox(double x, double y, double w, double h, double angle)
+{
+	change(x, y, w, h, angle);
+}
+
+void Hitbox::change(double dx, double dy, double dw, double dh, double dangle)
+{
+	center.x = dx;
+	center.y = dy;
+	w = dw;
+	h = dh;
+	angle = dangle;
+	double a = sqrt(h*h / 4 + w * w / 4);
+	double tg2 = w / h, tg1 = tan(angle);
+	Vector topick1 = Vector((tg1 + tg2) / (1 - tg1 * tg2), 1).normalize(a);
+	Vector topick2 = Vector((tg1 - tg2) / (1 + tg1 * tg2), 1).normalize(a);
+	points[0] = Point(center + topick2);
+	points[1] = Point(center + topick1);
+	points[2] = Point(center + (topick2 * -1));
+	points[3] = Point(center + (topick1 * -1));
+}
+
+void Hitbox::move(Vector v2)
+{
+	change(center.x + v2.x, center.y + v2.y, w, h, angle);
+}
+
+void Hitbox::moveTo(double x, double y)
+{
+	change(x, y, w, h, angle);
+}
+
+void Hitbox::rotate(double dangle)
+{
+	change(center.x, center.y, w, h, angle + dangle);
+}
+
+void Hitbox::rotateTo(double angle)
+{
+	change(center.x, center.y, w, h, angle);
+}
+
+void Hitbox::setH(double H)
+{
+	change(center.x, center.y, w, H, angle);
+}
+
+void Hitbox::setW(double W)
+{
+	change(center.x, center.y, W, h, angle);
+}
+
