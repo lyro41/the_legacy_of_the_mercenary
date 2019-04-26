@@ -19,7 +19,7 @@ int main()
 
 
     RenderWindow window(VideoMode(1920, 1080), "");
-    //window.setVerticalSyncEnabled(true);
+    window.setVerticalSyncEnabled(true);
 
 
     Map location("Map.end.blur.PNG", "grass.PNG", "locations/main/");
@@ -40,7 +40,7 @@ int main()
         double time_environment = clock.getElapsedTime().asSeconds();
 
         clock.restart();
-        Time /= 500;
+        Time /= 1500;
 
 
         Event event;
