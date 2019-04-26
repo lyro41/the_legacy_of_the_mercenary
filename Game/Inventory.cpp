@@ -144,24 +144,46 @@ void Inventory::main(RenderWindow &window, Camera &camera, PropertyList &propert
 				return;
 			}
 
-			if (event.type == Event::MouseButtonPressed && event.key.code == Mouse::Left && (pos.y >= 0 && pos.x >= 0 && pos.x / 64 < width && pos.y / 64 < height) && inventory[pos.y / 64][pos.x / 64] != L"EMPTY")
+			if (event.type == Event::MouseButtonPressed && event.key.code == Mouse::Left && (pos.y >= 0 && pos.x >= 0 && pos.x / 68 < width && pos.y / 68 < height) && inventory[pos.y / 68][pos.x / 68] != L"EMPTY")
 			{
-				i = pos.y / 64;
-				j = pos.x / 64;
+				i = pos.y / 68;
+				j = pos.x / 68;
 				if (inventory[i][j] == L"SEE_TOP") --i;
+				Dragged = properties.items[inventory[i][j]]->sprite;
 				dx = pos.x - properties.items[inventory[i][j]]->sprite.getPosition().x;
 				dy = pos.y - properties.items[inventory[i][j]]->sprite.getPosition().y;
-				Dragged = properties.items[inventory[i][j]]->sprite;
 				Color color = Color::White;
 				color.a = 75;
 				properties.items[inventory[i][j]]->sprite.setColor(color);
 				isDrag = true;
 			}
 
-			if (event.type == Event::MouseButtonReleased && event.key.code == Mouse::Left)
+			if (event.type == Event::MouseButtonReleased && event.key.code == Mouse::Left && i >= 0 && j >= 0)
 			{
 				isDrag = false;
-				if (i >= 0 && j >= 0) properties.items[inventory[i][j]]->sprite.setColor(Color::White);
+				properties.items[inventory[i][j]]->sprite.setColor(Color::White);
+
+				IntRect drag_rect = Dragged.getTextureRect();
+				int to_i = (pos.y - dy - drag_rect.height / 2) / 68;
+				int to_j = (pos.x - dx - drag_rect.width / 2) / 68;
+				if (i >= 0 && j >= 0 && to_i < height && to_j < width && to_i >= 0 && to_j >= 0)
+				{
+
+					if (properties.items[inventory[i][j]]->size == Point(1, 1) && inventory[to_i][to_j] == L"EMPTY")
+					{
+						inventory[to_i][to_j] = inventory[i][j];
+						inventory[i][j] = L"EMPTY";
+					}
+					else if (properties.items[inventory[i][j]]->size == Point(1, 2) && (inventory[to_i][to_j] == L"EMPTY" || (to_i == i + 1 && to_j == j)) && to_i < height - 1 && (inventory[to_i + 1][to_j] == L"EMPTY" || (to_i == i - 1 && to_j == j)))
+					{
+						std::wstring temp = inventory[i][j];
+						inventory[i][j] = L"EMPTY";
+						inventory[i + 1][j] = L"EMPTY";
+						inventory[to_i][to_j] = temp;
+						inventory[to_i + 1][to_j] = L"SEE_TOP";
+					}
+
+				}
 				i = -1;
 				j = -1;
 			}

@@ -7,6 +7,8 @@
 
 const double Pi = 3.1415926535897932384626;
 
+const double NO_POINT_X = -738264;
+
 class Vector;
 
 class Point
@@ -85,7 +87,5 @@ bool isIntersected(Hitbox h1, Hitbox h2);
 double dotProduct(Vector v1, Vector v2);
 
 double crossProduct(Vector v1, Vector v2);
-
-const double NO_POINT_X = -738264;
 
 #endif // GEOMETRY_H

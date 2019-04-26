@@ -1,7 +1,16 @@
-﻿  Character.cpp
-d:\coding\game\game\character.cpp(12): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-d:\coding\game\game\character.cpp(13): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-d:\coding\game\game\character.cpp(21): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-d:\coding\game\game\character.cpp(104): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-d:\coding\game\game\character.cpp(112): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+﻿  Inventory.cpp
+d:\coding\game\game\inventory.cpp(54): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\coding\game\game\inventory.cpp(59): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\coding\game\game\inventory.cpp(65): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\coding\game\game\inventory.cpp(73): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\coding\game\game\inventory.cpp(153): warning C4244: '=': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+d:\coding\game\game\inventory.cpp(154): warning C4244: '=': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
   Game.vcxproj -> D:\Coding\Game\x64\Debug\Game.exe
