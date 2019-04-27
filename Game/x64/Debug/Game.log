@@ -1,16 +1,17 @@
 ﻿  Inventory.cpp
-d:\coding\game\game\inventory.cpp(79): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\coding\game\game\inventory.cpp(84): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\coding\game\game\inventory.cpp(90): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\coding\game\game\inventory.cpp(98): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\coding\game\game\inventory.cpp(113): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
-d:\coding\game\game\inventory.cpp(114): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
-d:\coding\game\game\inventory.cpp(158): warning C4244: '=': conversion from 'T' to 'int', possible loss of data
+d:\coding\game\game\inventory.cpp(83): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\coding\game\game\inventory.cpp(88): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\coding\game\game\inventory.cpp(94): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\coding\game\game\inventory.cpp(101): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\coding\game\game\inventory.cpp(110): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\coding\game\game\inventory.cpp(125): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
+d:\coding\game\game\inventory.cpp(126): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
+d:\coding\game\game\inventory.cpp(170): warning C4244: '=': conversion from 'T' to 'int', possible loss of data
           with
           [
               T=float
           ]
-d:\coding\game\game\inventory.cpp(159): warning C4244: '=': conversion from 'T' to 'int', possible loss of data
+d:\coding\game\game\inventory.cpp(171): warning C4244: '=': conversion from 'T' to 'int', possible loss of data
           with
           [
               T=float

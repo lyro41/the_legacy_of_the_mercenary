@@ -70,6 +70,10 @@ void Inventory::Open(RenderWindow &window, std::unordered_map<std::wstring, Prop
 {
 	window.clear();
 	window.draw(background);
+	Font font;
+	font.loadFromFile("fonts/CyrilicOld.TTF");
+	Text counter("", font, 20);
+	counter.setStyle(Text::Bold);
 	for (int j = 0; j < width; ++j)
 	{
 		for (int i = 0; i < height; ++i)
@@ -89,6 +93,14 @@ void Inventory::Open(RenderWindow &window, std::unordered_map<std::wstring, Prop
 			{
 				items[inventory[i][j]]->sprite.setPosition(LEFT_SPACE + 4 + j * 68, TOP_SPACE + 4 + i * 68);
 				window.draw(items[inventory[i][j]]->sprite);
+
+				if (items[inventory[i][j]]->quantity > 1)
+				{
+					counter.setString(std::to_string(items[inventory[i][j]]->quantity));
+					counter.setOrigin(counter.getLocalBounds().width, counter.getLocalBounds().height);
+					counter.setPosition(LEFT_SPACE + 66 + j * 68, TOP_SPACE + 60 + i * 68);
+					window.draw(counter);
+				}
 			}
 		}
 	}
