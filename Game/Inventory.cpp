@@ -34,9 +34,34 @@ Inventory::Inventory()
 
 
 
-void Inventory::Close(RenderWindow &window)
+Point Inventory::EmptySearch(std::wstring obj, std::unordered_map<std::wstring, Properties*> &items)
 {
-	status = false;
+	if (items[obj]->size == Point(1, 1))
+	{
+		for (int i = 0; i < height; ++i)
+		{
+			for (int j = 0; j < width; ++j)
+			{
+				if (inventory[i][j] == L"EMPTY")
+				{
+					return Point(j, i);
+				}
+			}
+		}
+	}
+	else if (items[obj]->size == Point(1, 2))
+	{
+		for (int i = 0; i < height - 1; ++i)
+		{
+			for (int j = 0; j < width; ++j)
+			{
+				if (inventory[i][j] == L"EMPTY" && inventory[i + 1][j] == L"EMPTY")
+				{
+					return Point(j, i);
+				}
+			}
+		}
+	}
 }
 
 
@@ -79,36 +104,15 @@ void Inventory::Open(RenderWindow &window, std::unordered_map<std::wstring, Prop
 
 
 
-void Inventory::AddToInventory(std::wstring obj, std::unordered_map<std::wstring, Properties*> &items, RenderWindow &window)
+void Inventory::AddToInventory(std::wstring obj, std::unordered_map<std::wstring, Properties*> &items)
 {
-	if (items[obj]->size == Point(1, 1))
+	if (items[obj]->quantity) items[obj]->quantity += 1;
+	else
 	{
-		for (int i = 0; i < height; ++i)
-		{
-			for (int j = 0; j < width; ++j)
-			{
-				if (inventory[i][j] == L"EMPTY")
-				{
-					inventory[i][j] = obj;
-					return;
-				}
-			}
-		}
-	}
-	else if (items[obj]->size == Point(1, 2))
-	{
-		for (int i = 0; i < height - 1; ++i)
-		{
-			for (int j = 0; j < width; ++j)
-			{
-				if (inventory[i][j] == L"EMPTY" && inventory[i + 1][j] == L"EMPTY")
-				{
-					inventory[i][j] = obj;
-					inventory[i + 1][j] = L"SEE_TOP";
-					return;
-				}
-			}
-		}
+		Point empty = this->EmptySearch(obj, items);
+		inventory[empty.y][empty.x] = obj;
+		if (items[obj]->size == Point(1, 2)) inventory[empty.y + 1][empty.x] == L"SEE_TOP";
+		items[obj]->quantity = 1;
 	}
 }
 
@@ -121,6 +125,7 @@ void Inventory::main(RenderWindow &window, Camera &camera, PropertyList &propert
 	window.setView(camera.camera_view);
 	Event event;
 	int i = -1, j = -1, dx, dy;
+	std::cout << properties.items[L"pearl"]->quantity << '\n';
 
 	std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
 

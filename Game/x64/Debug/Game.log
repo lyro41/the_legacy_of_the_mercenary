@@ -1,16 +1,19 @@
 ﻿  Inventory.cpp
-d:\coding\game\game\inventory.cpp(54): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\coding\game\game\inventory.cpp(59): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\coding\game\game\inventory.cpp(65): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\coding\game\game\inventory.cpp(73): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\coding\game\game\inventory.cpp(153): warning C4244: '=': conversion from 'T' to 'int', possible loss of data
+d:\coding\game\game\inventory.cpp(79): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\coding\game\game\inventory.cpp(84): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\coding\game\game\inventory.cpp(90): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\coding\game\game\inventory.cpp(98): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\coding\game\game\inventory.cpp(113): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
+d:\coding\game\game\inventory.cpp(114): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
+d:\coding\game\game\inventory.cpp(158): warning C4244: '=': conversion from 'T' to 'int', possible loss of data
           with
           [
               T=float
           ]
-d:\coding\game\game\inventory.cpp(154): warning C4244: '=': conversion from 'T' to 'int', possible loss of data
+d:\coding\game\game\inventory.cpp(159): warning C4244: '=': conversion from 'T' to 'int', possible loss of data
           with
           [
               T=float
           ]
+d:\coding\game\game\inventory.cpp(65): warning C4715: 'Inventory::EmptySearch': not all control paths return a value
   Game.vcxproj -> D:\Coding\Game\x64\Debug\Game.exe

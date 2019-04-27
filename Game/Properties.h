@@ -26,6 +26,7 @@ public:
 	std::string description;
 	Point size;
 	std::string update, interaction;
+	int quantity = 0;
 
 	std::vector<Sprite> status;
 

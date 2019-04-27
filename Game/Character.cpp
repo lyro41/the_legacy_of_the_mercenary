@@ -195,7 +195,7 @@ void Character::InteractionWithMap(String command, RenderWindow &window, Objects
 		int j = static_cast<int>(x + ws * (speedVector.x > 0)) / 64;
 		if (properties.objects[objects.define[objects.objMap[i][j]]]->interaction == "lootable")
 		{
-			inventory.AddToInventory(objects.define[objects.objMap[i][j]], properties.items, window);
+			inventory.AddToInventory(objects.define[objects.objMap[i][j]], properties.items);
 			objects.objMap[i][j] = ' ';
 		}
 	}
