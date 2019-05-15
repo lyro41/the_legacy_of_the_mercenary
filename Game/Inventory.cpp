@@ -130,20 +130,30 @@ void Inventory::AddToInventory(std::wstring obj, std::unordered_map<std::wstring
 
 
 
-void Inventory::main(RenderWindow &window, Camera &camera, PropertyList &properties)
+void Inventory::main(RenderWindow &window, Camera &camera, PropertyList &properties, Music &main_theme)
 {
 
 	camera.camera_view.reset(FloatRect(0, 0, 1920, 1080));
 	window.setView(camera.camera_view);
 	Event event;
+	Music inventory_theme;
 	int i = -1, j = -1, dx, dy;
-	std::cout << properties.items[L"pearl"]->quantity << '\n';
 
 	std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
 
+
+
+	if (status)
+	{
+		main_theme.pause();
+		inventory_theme.openFromFile("music/inventory_theme.ogg");
+		inventory_theme.setVolume(5);
+		inventory_theme.setLoop(true);
+		inventory_theme.play();
+	}
+
 	while (window.isOpen() && status)
 	{
-
 		Vector2i pos = Mouse::getPosition(window);
 		pos.x -= LEFT_SPACE;
 		pos.y -= TOP_SPACE;
@@ -216,4 +226,9 @@ void Inventory::main(RenderWindow &window, Camera &camera, PropertyList &propert
 		this->Open(window, properties.items);
 
 	}
+
+	inventory_theme.stop();
+
+	if (main_theme.getStatus() == SoundSource::Paused) main_theme.play();
+
 }

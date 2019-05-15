@@ -10,6 +10,8 @@
 #include "Geometry.h"
 #include "Properties.h"
 
+const int TRACKS_QUAN = 2;
+
 
 int main()
 {
@@ -32,10 +34,11 @@ int main()
 
 
 	
-	sf::Music main_theme;
-	main_theme.openFromFile("music/main_theme.ogg");
+	Music main_theme;
+	int track = 1;
+	main_theme.openFromFile("music/main_theme_1.ogg");
 	main_theme.play();
-	main_theme.setLoop(true);
+	main_theme.setVolume(10);
 
 
     while (window.isOpen())
@@ -46,6 +49,12 @@ int main()
         clock.restart();
         Time /= 1500;
 
+		if (main_theme.getStatus() == SoundSource::Stopped)
+		{
+			if (++track > TRACKS_QUAN) track = 1;
+			main_theme.openFromFile("music/main_theme_" + std::to_string(track) + ".ogg");
+			main_theme.play();
+		}
 
         Event event;
         while (window.pollEvent(event))
@@ -55,7 +64,7 @@ int main()
         }
 
 		
-		inventory.main(window, camera, properties);
+		inventory.main(window, camera, properties, main_theme);
 
 
         Hero.Update(Time, objects, camera, inventory, properties, window);

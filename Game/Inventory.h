@@ -3,6 +3,7 @@
 #define INVENTORY_H
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <vector>
 #include <unordered_map>
 #include <string>
@@ -54,7 +55,7 @@ public:
 	Point EmptySearch(std::wstring obj, std::unordered_map<std::wstring, Properties*> &items);
 	void Open(RenderWindow &window, std::unordered_map<std::wstring, Properties*> &items);
 	void AddToInventory(std::wstring obj, std::unordered_map<std::wstring, Properties*> &items);
-	void main(RenderWindow &window, Camera &camera, PropertyList &properties);
+	void main(RenderWindow &window, Camera &camera, PropertyList &properties, Music &music);
 
 };
 
