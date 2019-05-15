@@ -13,6 +13,14 @@ Objects::Objects(std::string dir)
 	pearl_texture.loadFromImage(pearl_image);
 	pearl_sprite.setTexture(pearl_texture);
 
+	fir_image.loadFromFile("images/objects/fir.png");
+	fir_texture.loadFromImage(fir_image);
+	fir_sprite.setTexture(fir_texture);
+
+	big_fir_image.loadFromFile("images/objects/big_fir.png");
+	big_fir_texture.loadFromImage(big_fir_image);
+	big_fir_sprite.setTexture(big_fir_texture);
+
 	this->LoadObjects(dir + "objects.TXT");
 	this->ObjDef("locations/objects_define.TXT");
 }
@@ -46,16 +54,26 @@ void Objects::DrawObjects(float time, RenderWindow &window)
 	{
 		for (int j = 0; j < width_objMap; ++j)
 		{
-			if (objMap[i][j] == ' ')
+			/*if (objMap[i][j] == ' ')
 			{
-				grass_sprite.setTextureRect(IntRect(72 * int(current_frame), 0, 72, 64));
+				grass_sprite.setTextureRect(IntRect(72  int(current_frame), 0, 72, 64));
 				grass_sprite.setPosition(j * 64, i * 64);
 				window.draw(grass_sprite);
 			}
-			else if (objMap[i][j] == 'p')
+			else*/ if (objMap[i][j] == 'p')
 			{
 				pearl_sprite.setPosition(j * 64, i * 64);
 				window.draw(pearl_sprite);
+			}
+			else if (objMap[i][j] == 'f')
+			{
+				fir_sprite.setPosition(j * 64, i * 64);
+				window.draw(fir_sprite);
+			}
+			else if (objMap[i][j] == 'b')
+			{
+				big_fir_sprite.setPosition(j * 64, i * 64);
+				window.draw(big_fir_sprite);
 			}
 		}
 	}

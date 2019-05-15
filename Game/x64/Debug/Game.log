@@ -1,20 +1,4 @@
-﻿  Inventory.cpp
-d:\coding\game\game\inventory.cpp(83): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\coding\game\game\inventory.cpp(88): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\coding\game\game\inventory.cpp(94): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\coding\game\game\inventory.cpp(101): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\coding\game\game\inventory.cpp(110): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\coding\game\game\inventory.cpp(125): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
-d:\coding\game\game\inventory.cpp(126): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
-d:\coding\game\game\inventory.cpp(180): warning C4244: '=': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-d:\coding\game\game\inventory.cpp(181): warning C4244: '=': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-d:\coding\game\game\inventory.cpp(65): warning C4715: 'Inventory::EmptySearch': not all control paths return a value
-  Game.vcxproj -> D:\Coding\Game\x64\Debug\Game.exe
+﻿  main.cpp
+f:\coding\c++\game\the_legacy_of_the_mercenary\game\main.cpp(46): warning C4244: инициализация: преобразование "sf::Int64" в "double", возможна потеря данных
+f:\coding\c++\game\the_legacy_of_the_mercenary\game\main.cpp(77): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  Game.vcxproj -> F:\Coding\C++\Game\the_legacy_of_the_mercenary\x64\Debug\Game.exe

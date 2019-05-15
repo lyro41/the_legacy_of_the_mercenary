@@ -25,6 +25,14 @@ private:
 	Texture pearl_texture;
 	Sprite pearl_sprite;
 
+	Image fir_image;
+	Texture fir_texture;
+	Sprite fir_sprite;
+
+	Image big_fir_image;
+	Texture big_fir_texture;
+	Sprite big_fir_sprite;
+
 	float current_frame = 0;
 
 
