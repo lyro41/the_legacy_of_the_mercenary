@@ -1,5 +1,6 @@
 #include "pch.h"
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "windows.h"
 #include <locale>
 #include "Character.h"
@@ -30,8 +31,11 @@ int main()
 	PropertyList properties(L"properties/");
 
 
-
-
+	
+	sf::Music main_theme;
+	main_theme.openFromFile("music/main_theme.ogg");
+	main_theme.play();
+	main_theme.setLoop(true);
 
 
     while (window.isOpen())
@@ -50,7 +54,7 @@ int main()
 			else if (event.type == Event::KeyPressed && event.key.code == sf::Keyboard::I) inventory.status = true;
         }
 
-
+		
 		inventory.main(window, camera, properties);
 
 
