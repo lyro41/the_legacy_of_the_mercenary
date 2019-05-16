@@ -2,21 +2,21 @@
 0ffffffffffffffffffffffffffffffffffffffffffffffffff0
 0fbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbf0
 0fb                                                0
+0fb              p                   p             0
 0fb                                                0
-0fb                                                0
+0fb       p                                        0
 0fb                                              bf0
 0fb                                              bf0
 0fb                                              bf0
 0fb                                              bf0
+0fb   p                                          bf0
 0fb                                              bf0
 0fb                                              bf0
+0fb                                 p            bf0
 0fb                                              bf0
+0fb       p                                      bf0
 0fb                                              bf0
-0fb                                              bf0
-0fb                                              bf0
-0fb                                              bf0
-0fb                                              bf0
-0fb                                              bf0
+0fb                              p               bf0
 0fb                                              bf0
 0fb                                              bf0
 0000000000000000000000000000000000000000000000000000

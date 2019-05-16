@@ -1,22 +1,22 @@
 0000000000000000000000000000000000000000000000000000
 0                                                  0
-0                                                  0
-0                                            abbbbbb
-0                                         abbkeeeeee
-0                                      abbkeeeeeeeee
-0                      abbbbc        abkeeeeeelhhhhh
-0                    abkeeeejbbbbbbbbkeeeeeelhi    0
-0                   akeeeeeeeeeeeeeeeeeeelhhi      0
-0                   deeeeeeeeeeeeeeeeeelhi         0
-0                   gmeeeeeeeelhhhhhhhhi           0
-0                    gmeeeeeeli                    0
-0                     gmeeeeli                     0
-0                      gmeeli                      0
-0                       deef                       0
-0                       deef                       0
-0                       deef                       0
-0                       deef                       0
-0                       deef                       0
-0                       deef                       0
-0                       deef                       0
+0 00000000000000000000000000000000000000000000000000
+0 0                                          abbbbb0
+0 0                                       abbkeeeee0
+0 0                                    abbkeeeeeeee0
+0 0                    abbbbc        abkeeeeeelhhhh0
+0 0                  abkeeeejbbbbbbbbkeeeeeelhi  000
+0 0                 akeeeeeeeeeeeeeeeeeeelhhi    0 0
+0 0                 deeeeeeeeeeeeeeeeeelhi       0 0
+0 0                 gmeeeeeeeelhhhhhhhhi         0 0
+0 0                  gmeeeeeeli                  0 0
+0 0                   gmeeeeli                   0 0
+0 0                    gmeeli                    0 0
+0 0                     deef                     0 0
+0 0                     deef                     0 0
+0 0                     deef                     0 0
+0 0                     deef                     0 0
+0 0                     deef                     0 0
+0 0                     deef                     0 0
+0 0                     deef                     0 0
 0000000000000000000000000000000000000000000000000000

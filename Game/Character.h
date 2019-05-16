@@ -28,11 +28,11 @@ private:
 
 public:
 	Character(String title_pers, int X, int Y, double width_sprite, double height_sprite, double Speed);
-	void Update(double time, Objects &objects_map, Camera &camera, Inventory &inventory, PropertyList &properties, RenderWindow &window);
+	void Update(double time, Objects &objects_map, Camera &camera, Inventory &inventory, PropertyList &properties, RenderWindow &window, Map &map);
 	double GetCharacterCoordinateX();
 	double GetCharacterCoordinateY();
 	Sprite GetSprite();
-	void InteractionWithMap(String command, RenderWindow &window, Objects &objects_map, Inventory &inventory, PropertyList &properties);
+	void InteractionWithMap(String command, RenderWindow &window, Objects &objects_map, Inventory &inventory, PropertyList &properties, Map &map);
 
 };
 

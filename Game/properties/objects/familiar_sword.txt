@@ -1,0 +1,7 @@
+dir: familiar_sword/
+
+size: 128x64
+
+frames: 0
+
+interaction: lootable

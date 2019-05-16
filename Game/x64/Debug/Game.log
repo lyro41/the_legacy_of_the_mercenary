@@ -1,4 +1,4 @@
 ﻿  main.cpp
-f:\coding\c++\game\the_legacy_of_the_mercenary\game\main.cpp(46): warning C4244: инициализация: преобразование "sf::Int64" в "double", возможна потеря данных
-f:\coding\c++\game\the_legacy_of_the_mercenary\game\main.cpp(77): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
-  Game.vcxproj -> F:\Coding\C++\Game\the_legacy_of_the_mercenary\x64\Debug\Game.exe
+d:\coding\game\game\main.cpp(46): warning C4244: 'initializing': conversion from 'sf::Int64' to 'double', possible loss of data
+d:\coding\game\game\main.cpp(77): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  Game.vcxproj -> D:\Coding\Game\x64\Debug\Game.exe

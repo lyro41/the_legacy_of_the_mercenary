@@ -10,7 +10,7 @@
 #include "Geometry.h"
 #include "Properties.h"
 
-const int TRACKS_QUAN = 2;
+const int TRACKS_QUAN = 3;
 
 
 int main()
@@ -26,7 +26,7 @@ int main()
 
 
     Map location("Map.end.blur.PNG", "grass.PNG", "locations/main/");
-    Character Hero("hero.PNG", 1600, 500, 30, 60, 0.4);
+    Character Hero("hero.PNG", 1650, 1280, 30, 60, 0.4);
 	Objects objects("locations/main/");
 	Camera camera(FloatRect(0, 0, 1920, 1080));
 	Inventory inventory;
@@ -67,7 +67,7 @@ int main()
 		inventory.main(window, camera, properties, main_theme);
 
 
-        Hero.Update(Time, objects, camera, inventory, properties, window);
+        Hero.Update(Time, objects, camera, inventory, properties, window, location);
 
         window.setView(camera.camera_view);
 

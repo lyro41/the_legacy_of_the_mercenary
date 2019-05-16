@@ -1,3 +1,4 @@
  =grass
 0=wall
 p=pearl
+s=familiar_sword
